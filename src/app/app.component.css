@@ -1,0 +1,17 @@
+.appContainer {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(30, 79, 98);
+    display: flex;
+    justify-content: center;
+}
+.gridContainer {
+    background-color: red;
+}
+
+.mat-grid-tile {
+   background-color: grey;
+} 
+.mat-grid-list {
+    position:inherit;
+}

@@ -1,4 +1,5 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow} = require('electron');
+
     const url = require("url");
     const path = require("path");
 
@@ -6,8 +7,8 @@ const {app, BrowserWindow} = require('electron')
 
     function createWindow () {
       mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 1000,
         webPreferences: {
           nodeIntegration: true
         }
@@ -21,7 +22,7 @@ const {app, BrowserWindow} = require('electron')
         })
       );
       // Open the DevTools.
-      mainWindow.webContents.openDevTools()
+      // mainWindow.webContents.openDevTools()
 
       mainWindow.on('closed', function () {
         mainWindow = null
