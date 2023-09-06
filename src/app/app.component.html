@@ -1,11 +1,6 @@
 <div class="appContainer">
   <div class="gridContainer">
-    <mat-grid-list cols="6" rowHeight="1:1">
-      <mat-grid-tile>+</mat-grid-tile>
-      <ng-container *ngFor="let video of savedVideos">
-        <mat-grid-tile>{{video}}</mat-grid-tile>
-      </ng-container>
-    </mat-grid-list>
+    <div class="gridTile" *ngFor="let video of savedVideos">{{video}}</div>
   </div>
   
 
