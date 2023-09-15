@@ -9,16 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent {
 
 
-  title = 'video-notes';
-
-  savedVideos: any[] = [1,2,3]
-
-  pageViewing = 'Home'
-
   constructor(private router: Router, private route: ActivatedRoute){}
 
-  navigateToUploader(){
-    this.router.navigate(['upload']);
-  }
   
 }

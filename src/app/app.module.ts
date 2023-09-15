@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { RouterModule } from '@angular/router';
+import { HomeViewComponent } from './home-view/home-view.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeViewComponent
   ],
   imports: [
     BrowserModule,

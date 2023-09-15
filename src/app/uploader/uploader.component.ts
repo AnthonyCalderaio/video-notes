@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 
 @Component({
@@ -7,6 +8,8 @@ import { NgxFileDropEntry } from 'ngx-file-drop';
   styleUrls: ['./uploader.component.css']
 })
 export class UploaderComponent {
+
+  constructor(private router:Router){}
 
   droppedVideoList: NgxFileDropEntry[] = [];
 
@@ -23,6 +26,10 @@ export class UploaderComponent {
   }
   fileLeave(idkYet: any){
 
+  }
+
+  navigateHome(){
+    this.router.navigate(['/home']);
   }
 
 }
