@@ -11,26 +11,26 @@ import { StorageService } from '../../services/storage-service.service';
 
 export class UploaderComponent {
 
-  constructor(private router:Router, private storageService: StorageService){}
+  constructor(private router: Router, private storageService: StorageService) { }
 
   droppedVideoList: NgxFileDropEntry[] = [];
 
-  dropped(droppedFiles: NgxFileDropEntry[]){
+  dropped(droppedFiles: NgxFileDropEntry[]) {
     this.storageService.saveVideos(droppedFiles)
-    .subscribe()
-    
+      .subscribe()
+
   }
 
   //TODO: Fill in the below functions
-  fileOver(idkYet: any){
+  fileOver(idkYet: any) {
 
   }
 
-  fileLeave(idkYet: any){
+  fileLeave(idkYet: any) {
 
   }
 
-  navigateHome(){
+  navigateHome() {
     this.router.navigate(['/home']);
   }
 

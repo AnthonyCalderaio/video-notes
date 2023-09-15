@@ -11,7 +11,7 @@ export class UtilityService {
 
   constructor() { }
 
-  extractVideoResources(videoList: any):Observable<SavedVideo[]>{
+  extractVideoResources(videoList: any): Observable<SavedVideo[]> {
     let extractedVideoArray = videoList.map((video: any) => {
       let replacementVideo = {} as SavedVideo;
       replacementVideo['name'] = video.fileEntry.name;

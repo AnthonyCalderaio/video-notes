@@ -1,19 +1,5 @@
-<div style="padding-top:20px">
-  <span (click)="navigateHome()" style="font-size: 50px;">
-    Go Home
-  </span>
-</div>
-
 <div class="center">
-  <!--  -->
-    <ngx-file-drop dropZoneLabel="Drop video here" 
-    (onFileDrop)="dropped($event)" 
-    (onFileOver)="fileOver($event)" 
+  <ngx-file-drop dropZoneLabel="Drop video here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
     (onFileLeave)="fileLeave($event)">
-    </ngx-file-drop>
-  </div>
-  <div >
-    <!-- <mat-list *ngFor="let video of droppedVideoList; let i = index" role="list"> -->
-      <!-- <mat-list-item role="listitem">{{video?.fileEntry?.name}}</mat-list-item> -->
-    <!-- </mat-list> -->
-  </div>
+  </ngx-file-drop>
+</div>

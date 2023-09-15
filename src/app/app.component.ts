@@ -16,6 +16,7 @@ export class AppComponent {
   ngOnInit(): void {
   }
 
-  fileLeave(event: any){}
-  fileOver(event: any){}
+  navigateHome(){
+    this.router.navigate(['/home']);
+  }
 }

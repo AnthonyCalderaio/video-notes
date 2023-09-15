@@ -1,6 +1,7 @@
-<div  class="appContainer">
+<div class="appContainer">
+  <span (click)="storageService.clearAllVideos(); locationRef.reload();" style="background-color: aliceblue">Delete All</span>
     <div class="gridContainer">
-        <div  routerLink="/uploader" class="gridTile">+</div>
-        <div class="gridTile" *ngFor="let video of savedVideos">{{video.name}}</div>
+        <div routerLink="/uploader" class="gridTile">+</div>
+        <div *ngFor="let video of savedVideos" (click)="navigateToVideoScreen(video.videoPath)" class="gridTile">{{video.name}}</div>
       </div>
 </div>

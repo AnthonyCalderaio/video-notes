@@ -20,17 +20,13 @@ export class StorageService {
           return this.saveExtractedVideos(extractedVideoArray)
         })
       )
-
-
-
-
   }
 
   private saveExtractedVideos(extractedVideoArray: SavedVideo[]): Observable<any> {
     // this.clearAllVideos()
     return from(get('videos')
       .then((savedVideos: any) => {
-        if(!savedVideos && JSON.parse(savedVideos)){
+        if (!savedVideos && JSON.parse(savedVideos)) {
           savedVideos = new Array()
         }
         savedVideos = JSON.parse(savedVideos)

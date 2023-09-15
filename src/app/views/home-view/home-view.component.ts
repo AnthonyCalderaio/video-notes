@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../../services/storage-service.service';
+import { SavedVideo } from 'src/app/interfaces/saved-video.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-view',
@@ -7,7 +9,8 @@ import { StorageService } from '../../services/storage-service.service';
   styleUrls: ['./home-view.component.css']
 })
 export class HomeViewComponent {
-  constructor(private storageService: StorageService) { }
+  locationRef = location;
+  constructor(public storageService: StorageService, public router:Router) { }
   ngOnInit(): void {
     this.storageService
       .getVideos()
@@ -18,7 +21,12 @@ export class HomeViewComponent {
   }
   title = 'video-notes';
 
-  savedVideos: any[] = []
+  savedVideos: SavedVideo[] = []
 
   pageViewing = 'Home'
+
+  navigateToVideoScreen(path:string){
+    this.router.navigate(['video'])
+    console.log('navigate to:'+path)
+  }
 }
