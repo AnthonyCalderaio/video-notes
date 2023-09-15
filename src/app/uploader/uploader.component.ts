@@ -21,7 +21,6 @@ export class UploaderComponent {
   fileOver(idkYet: any){
 
   }
-  // TODO: change name
   fileLeave(idkYet: any){
 
   }

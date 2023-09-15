@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UploaderComponent } from './uploader/uploader.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'uploader', component: UploaderComponent },
+  { path: '**', redirectTo: 'login' }
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  declarations:[],
+  imports: [
+    RouterModule.forRoot(routes)
+  ],
+  exports: [RouterModule,]
 })
 export class AppRoutingModule { }
+
