@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxFileDropEntry } from 'ngx-file-drop';
-import { StorageServiceService } from '../storage-service.service';
+import { StorageService } from '../storage-service.service';
 
 @Component({
   selector: 'app-uploader',
@@ -11,7 +11,7 @@ import { StorageServiceService } from '../storage-service.service';
 
 export class UploaderComponent {
 
-  constructor(private router:Router, private storageService: StorageServiceService){}
+  constructor(private router:Router, private storageService: StorageService){}
 
   droppedVideoList: NgxFileDropEntry[] = [];
 

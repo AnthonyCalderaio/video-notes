@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StorageServiceService } from '../storage-service.service';
+import { StorageService } from '../storage-service.service';
 
 @Component({
   selector: 'app-home-view',
@@ -7,7 +7,7 @@ import { StorageServiceService } from '../storage-service.service';
   styleUrls: ['./home-view.component.css']
 })
 export class HomeViewComponent {
-  constructor(private storageService: StorageServiceService) { }
+  constructor(private storageService: StorageService) { }
   ngOnInit(): void {
     this.storageService
       .getVideos()
@@ -16,7 +16,7 @@ export class HomeViewComponent {
         console.log(storedVideos)
         storedVideos ? this.savedVideos = storedVideos : []
       })
-
+      // this.storageService.clearAllVideos()
   }
   title = 'video-notes';
 

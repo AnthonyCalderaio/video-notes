@@ -6,7 +6,7 @@ import { Observable, of, from } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class StorageServiceService {
+export class StorageService {
 
   constructor() { }
 
@@ -36,5 +36,9 @@ export class StorageServiceService {
 
   getVideos(): Observable<any[]> {
     return from(get('videos').then((saveVideos:any) => JSON.parse(saveVideos)));
+  }
+
+  clearAllVideos(){
+    set('videos', JSON.stringify([]) )
   }
 }
