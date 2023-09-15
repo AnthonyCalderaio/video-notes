@@ -17,8 +17,6 @@ import { UploaderComponent } from './uploader/uploader.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // MatGridListModule,
-    // BrowserAnimationsModule,
     NgxFileDropModule
   ],
   providers: [],
