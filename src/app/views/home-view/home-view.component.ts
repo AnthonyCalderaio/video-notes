@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { StorageService } from '../storage-service.service';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-home-view',
@@ -12,8 +12,6 @@ export class HomeViewComponent {
     this.storageService
       .getVideos()
       .subscribe((storedVideos) => {
-        console.log('got:');
-        console.log(storedVideos)
         storedVideos ? this.savedVideos = storedVideos : []
       })
       // this.storageService.clearAllVideos()

@@ -14,7 +14,6 @@ export class AppComponent {
   constructor(private router: Router, private route: ActivatedRoute){}
 
   ngOnInit(): void {
-    get('hello').then((val) => console.log(val));
   }
 
   fileLeave(event: any){}

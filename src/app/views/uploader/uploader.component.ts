@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxFileDropEntry } from 'ngx-file-drop';
-import { StorageService } from '../storage-service.service';
+import { StorageService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-uploader',
@@ -16,9 +16,9 @@ export class UploaderComponent {
   droppedVideoList: NgxFileDropEntry[] = [];
 
   dropped(droppedFiles: NgxFileDropEntry[]){
-    this.droppedVideoList = this.droppedVideoList.concat(droppedFiles)
-    this.storageService.saveVideos(droppedFiles as any)
-    console.log(droppedFiles)
+    this.storageService.saveVideos(droppedFiles)
+    .subscribe()
+    
   }
 
   //TODO: Fill in the below functions

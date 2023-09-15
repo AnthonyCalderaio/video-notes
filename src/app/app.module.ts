@@ -3,9 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeViewComponent } from './home-view/home-view.component';
+import { HomeViewComponent } from './views/home-view/home-view.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
-import { UploaderComponent } from './uploader/uploader.component';
+import { UploaderComponent } from './views/uploader/uploader.component';
 
 
 @NgModule({
