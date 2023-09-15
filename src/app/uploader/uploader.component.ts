@@ -7,6 +7,7 @@ import { NgxFileDropEntry } from 'ngx-file-drop';
   templateUrl: './uploader.component.html',
   styleUrls: ['./uploader.component.css']
 })
+
 export class UploaderComponent {
 
   constructor(private router:Router){}
@@ -19,11 +20,10 @@ export class UploaderComponent {
   }
 
   //TODO: Fill in the below functions
-
-  // TODO: change name
   fileOver(idkYet: any){
 
   }
+
   fileLeave(idkYet: any){
 
   }

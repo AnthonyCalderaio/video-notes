@@ -3,24 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { RouterModule } from '@angular/router';
 import { HomeViewComponent } from './home-view/home-view.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { UploaderComponent } from './uploader/uploader.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeViewComponent
+    HomeViewComponent,
+    UploaderComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     // MatGridListModule,
     // BrowserAnimationsModule,
+    NgxFileDropModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports:[NgxFileDropModule]
 })
 export class AppModule { }
