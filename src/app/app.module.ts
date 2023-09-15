@@ -7,7 +7,10 @@ import { HomeViewComponent } from './views/home-view/home-view.component';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { UploaderComponent } from './views/uploader/uploader.component';
 import { VideoComponent } from './views/video/video.component';
-
+import {VgCoreModule} from '@videogular/ngx-videogular/core';
+import {VgControlsModule} from '@videogular/ngx-videogular/controls';
+import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play';
+import {VgBufferingModule} from '@videogular/ngx-videogular/buffering';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,11 @@ import { VideoComponent } from './views/video/video.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxFileDropModule
+    NgxFileDropModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

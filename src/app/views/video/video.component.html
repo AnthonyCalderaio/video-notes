@@ -1,2 +1,8 @@
 
-<div class="videoContainer"></div>
+<div class="videoContainer">
+      <vg-player class="player">
+        <video [vgMedia]="$any(media)" #media [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" id="singleVideo" preload="auto" controls>
+            <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+        </video>
+    </vg-player>
+</div>
