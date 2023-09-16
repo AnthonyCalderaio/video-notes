@@ -46,7 +46,6 @@ export class StorageService {
   }
 
   getVideos(): Observable<any[]> {
-    console.log('okay')
     return from(get('videos').then((saveVideos: any) => JSON.parse(saveVideos)));
   }
 

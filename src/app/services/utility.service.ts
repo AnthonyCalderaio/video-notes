@@ -15,7 +15,6 @@ export class UtilityService {
       let replacementVideo = {} as SavedVideo;
       replacementVideo['name'] = video.fileEntry.name;
       replacementVideo['videoPath'] = video.fileEntry.fullPath;
-      // replacementVideo['id'] = Math.floor(Math.random() * 110000);
       replacementVideo['base64'] = await this.getBase64FromFile(video);
       return replacementVideo;
     }))
@@ -24,15 +23,11 @@ export class UtilityService {
 
   async getBase64FromFile(file: any):Promise<any> {
     return new Promise((resolve, reject) => {
-      
       const fileEntry = file.fileEntry as FileSystemFileEntry;
       const reader = new FileReader();
-
     return fileEntry.file(file => {
         reader.readAsDataURL(file);
         reader.onload = () => {
-          console.log('done')
-          console.log(reader.result)
           resolve(reader.result)
         };
     });

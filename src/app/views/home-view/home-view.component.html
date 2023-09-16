@@ -2,6 +2,6 @@
   <span (click)="storageService.clearAllVideos(); refreshVideoList();" style="background-color: aliceblue">Delete All</span>
     <div class="gridContainer">
         <div routerLink="/uploader" class="gridTile">+</div>
-        <div *ngFor="let video of savedVideos; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile">{{video?.name}}</div>
+        <div *ngFor="let video of savedVideos; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile">{{i}}---{{video?.name}}</div>
       </div>
 </div>

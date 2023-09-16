@@ -25,15 +25,12 @@ export class HomeViewComponent {
       .getVideos()
       .subscribe((storedVideos) => {
         storedVideos ? this.savedVideos = storedVideos : []
-        console.log('storedVideos:')
-        console.log(storedVideos)
       })
       // this.storageService.clearAllVideos()
   }
 
   navigateToVideoScreen(videoIndex:any){
-    console.log(videoIndex)
-    let index = {index:0}
+    let index = {index:videoIndex}
     this.router.navigate(['video'], {queryParams:index})
   }
 }

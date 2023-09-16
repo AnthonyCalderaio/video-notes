@@ -18,7 +18,10 @@ export class VideoComponent {
       .subscribe(queryParams => {
         this.storageService
           .getVideos()
-          .subscribe((storedVideos) => {this.src = storedVideos[queryParams['index']].base64;})
+          .subscribe((storedVideos) => {
+            this.src = storedVideos[queryParams['index']].base64;
+
+        })
       }
       )
   }
