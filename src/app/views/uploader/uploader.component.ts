@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { StorageService } from '../../services/storage-service.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-uploader',
@@ -15,9 +16,13 @@ export class UploaderComponent {
 
   droppedVideoList: NgxFileDropEntry[] = [];
 
+  loading = false;
+
   dropped(droppedFiles: NgxFileDropEntry[]) {
+    this.loading = true;
     this.storageService.saveVideos(droppedFiles)
-      .subscribe()
+      .pipe(finalize(()=>this.loading = false))
+      .subscribe( )
 
   }
 
