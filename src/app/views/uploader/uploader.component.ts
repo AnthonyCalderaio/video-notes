@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { StorageService } from '../../services/storage-service.service';
 import { finalize } from 'rxjs';
+import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 
 @Component({
   selector: 'app-uploader',
@@ -12,17 +13,22 @@ import { finalize } from 'rxjs';
 
 export class UploaderComponent {
 
-  constructor(private router: Router, private storageService: StorageService) { }
-
   droppedVideoList: NgxFileDropEntry[] = [];
-
   loading = false;
 
+  constructor(
+    private router: Router,
+    private storageService: StorageService,
+    private loader: LoadingNotificationService) { }
+
+  ngOnInit(): void {
+
+  }
+
   dropped(droppedFiles: NgxFileDropEntry[]) {
-    this.loading = true;
+    this.isLoading(true)
     this.storageService.saveVideos(droppedFiles)
-      .pipe(finalize(()=>this.loading = false))
-      .subscribe( )
+      .subscribe(res => { console.log('done:'); this.isLoading(false) })
 
   }
 
@@ -39,4 +45,13 @@ export class UploaderComponent {
     this.router.navigate(['/home']);
   }
 
+  isLoading(loading: boolean) {
+    if (loading) {
+      this.loading = true;
+      this.loader.show();
+    } else {
+      this.loading = false;
+      this.loader.hide();
+    }
+  }
 }
