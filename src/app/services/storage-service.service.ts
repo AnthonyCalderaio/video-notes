@@ -14,7 +14,7 @@ export class StorageService {
   constructor(private utilityService: UtilityService) { }
 
   saveVideos(videoList: NgxFileDropEntry[]): Observable<any[]> {
-    return this.utilityService.extractVideoResources(videoList)
+    return from(this.utilityService.extractVideoResources(videoList))
       .pipe(
         switchMap((extractedVideoArray: SavedVideo[]) => {
           return this.saveExtractedVideos(extractedVideoArray)
@@ -26,10 +26,15 @@ export class StorageService {
     // this.clearAllVideos()
     return from(get('videos')
       .then((savedVideos: any) => {
-        if (!savedVideos && JSON.parse(savedVideos)) {
+        // TODO: clean this up
+        if (!savedVideos) {
           savedVideos = new Array()
         }
-        savedVideos = JSON.parse(savedVideos)
+        try {
+          savedVideos = JSON.parse(savedVideos)
+        } catch (error) {
+
+        }
         let tempList: SavedVideo[] = new Array()
         tempList = savedVideos.concat(extractedVideoArray)
         return set('videos', JSON.stringify(tempList))
@@ -41,6 +46,7 @@ export class StorageService {
   }
 
   getVideos(): Observable<any[]> {
+    console.log('okay')
     return from(get('videos').then((saveVideos: any) => JSON.parse(saveVideos)));
   }
 

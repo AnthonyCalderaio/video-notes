@@ -1,4 +1,6 @@
 export interface SavedVideo {
-    name:      string;
-    videoPath: string;
+    name?:      string;
+    videoPath?: string;
+    base64?:    any;
+    // id: number;
 }

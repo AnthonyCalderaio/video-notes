@@ -12,12 +12,7 @@ export class HomeViewComponent {
   locationRef = location;
   constructor(public storageService: StorageService, public router:Router) { }
   ngOnInit(): void {
-    this.storageService
-      .getVideos()
-      .subscribe((storedVideos) => {
-        storedVideos ? this.savedVideos = storedVideos : []
-      })
-      // this.storageService.clearAllVideos()
+    this.refreshVideoList()
   }
   title = 'video-notes';
 
@@ -25,8 +20,20 @@ export class HomeViewComponent {
 
   pageViewing = 'Home'
 
-  navigateToVideoScreen(path:string){
-    this.router.navigate(['video'])
-    console.log('navigate to:'+path)
+  refreshVideoList(){
+    this.storageService
+      .getVideos()
+      .subscribe((storedVideos) => {
+        storedVideos ? this.savedVideos = storedVideos : []
+        console.log('storedVideos:')
+        console.log(storedVideos)
+      })
+      // this.storageService.clearAllVideos()
+  }
+
+  navigateToVideoScreen(videoIndex:any){
+    console.log(videoIndex)
+    let index = {index:0}
+    this.router.navigate(['video'], {queryParams:index})
   }
 }
