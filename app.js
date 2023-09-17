@@ -13,6 +13,7 @@ const {app, BrowserWindow} = require('electron');
           nodeIntegration: true
         }
       })
+      mainWindow.setResizable(false)
 
       mainWindow.loadURL(
         url.format({
@@ -22,12 +23,15 @@ const {app, BrowserWindow} = require('electron');
         })
       );
       // Open the DevTools.
-      mainWindow.webContents.openDevTools()
+      // mainWindow.webContents.openDevTools()
 
       mainWindow.on('closed', function () {
         mainWindow = null
       })
     }
+
+    // mainWindow.s
+    
 
     app.on('ready', createWindow)
 

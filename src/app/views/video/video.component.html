@@ -1,9 +1,33 @@
-
 <div class="videoContainer">
-      <vg-player class="player">
+    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)">
         <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
-        <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto" controls>
+        <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
         </video>
+
+        <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
+            <vg-scrub-bar #scrubBar>
+                <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+            <vg-track-selector></vg-track-selector>
+            <vg-play-pause></vg-play-pause>
+            <vg-playback-button></vg-playback-button>
+            <vg-track-selector></vg-track-selector>
+        </vg-controls>
+
     </vg-player>
+
+    <div id=noteBar style="width:1000px;">here</div>
+
+    <span (click)="addTime()">getTime</span>
+    <pre></pre>
+    <span (click)="getScrubBar()">Annotate</span>
+    <!-- <span 
+    [style.color]="myColor"
+    attr.id="{{currentSecond}}"
+    [class]="23"
+    [ngStyle]="timeSignatureStyles(this.id)"
+    >I</span> -->
 </div>
