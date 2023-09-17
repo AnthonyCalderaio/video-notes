@@ -16,18 +16,22 @@
             <vg-playback-button></vg-playback-button>
             <vg-track-selector></vg-track-selector>
         </vg-controls>
-
     </vg-player>
 
-    <div id=noteBar style="width:1000px;">here</div>
+    <div #noteBar style="width:100%"></div>
 
     <span (click)="addTime()">getTime</span>
     <pre></pre>
     <span (click)="getScrubBar()">Annotate</span>
-    <!-- <span 
-    [style.color]="myColor"
-    attr.id="{{currentSecond}}"
-    [class]="23"
-    [ngStyle]="timeSignatureStyles(this.id)"
-    >I</span> -->
+    <pre></pre>
+    <span (click)="printSignature()">printSignature</span>
+    <pre></pre>
+    <span (click)="printAllNotes()">print all notes</span>
+    <pre></pre>
+    <span (click)="handleDrag()">handleDrag</span>
+    <pre></pre>
+    
+    <app-text-area [selectedSignature]="selectedSignature"></app-text-area>
+    
+    
 </div>

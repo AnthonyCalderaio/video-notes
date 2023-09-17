@@ -12,6 +12,10 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { SpinnerComponent } from './services/loading-notification/spinner/spinner.component';
+import { TimeSignatureComponent } from './plugins/time-signature/time-signature.component';
+import { TextAreaComponent } from './plugins/text-area/text-area.component';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,7 +24,9 @@ import { SpinnerComponent } from './services/loading-notification/spinner/spinne
     HomeViewComponent,
     UploaderComponent,
     VideoComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    TimeSignatureComponent,
+    TextAreaComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +35,9 @@ import { SpinnerComponent } from './services/loading-notification/spinner/spinne
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
-    VgBufferingModule
+    VgBufferingModule,
+    TextFieldModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
