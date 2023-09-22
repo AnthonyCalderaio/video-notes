@@ -20,98 +20,54 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   src: any = undefined;
   api!: VgApiService;
 
-  playerRatios = {
-    barWidth: undefined,
-    duration: undefined,
-    pixelsPerSecond: undefined,
-    sliderLocation: undefined
-  } as any
 
   // All notes for page
-  notesObject: any = {}
+  notesArray: any[] = []
 
-  selectedSignature:any = {};;
+  selectedSignatureObject: any = {};
 
   constructor(private route: ActivatedRoute, private storageService: StorageService) { }
 
   // All subscriptions: this.api.getDefaultMedia() 
 
-  handleDrag(){
-    console.log(this.api.getDefaultMedia().track)
-    // this.api.getDefaultMedia().subscriptions.ended.subscribe()
-    // console.log(this.scrubBar)
-    // this.api.getDefaultMedia().subscriptions.seeking.subscribe(res => {
-    //   console.log(res)
-    // })
+  handleDrag() {
+    console.log('this.api.getDefaultMedia().subscriptions:')
+    console.log(this.api.getDefaultMedia().subscriptions)
+    this.api.getDefaultMedia().subscriptions.seeking.subscribe((res: Event) => {
+      console.log('seeking:')
+      console.log(res)
+    })
   }
 
-  seekTo(input: any){
-    // console.log(timeSignature)
-    let signature = Number(input.currentSecond);
+  seekTo(input: any) {
+    let signature = Number(input);
     this.api.seekTime(signature)
-    this.setSelectedSignature(signature)
   }
 
-  setSelectedSignature(signature:number): object{
-    this.selectedSignature = this.notesObject[signature]
-    return this.selectedSignature;
+  printSignature() {
+    console.log(this.selectedSignatureObject)
   }
 
-  printSignature(){
-    console.log(this.selectedSignature)
+  printAllNotes() {
+    console.log(this.notesArray)
   }
 
-  printAllNotes(){
-    console.log(this.notesObject)
+  formatSignature(signature: any) {
+    return String(Math.floor(signature / 1000))
   }
 
-  addTime() {
-    let currentTime = this.api.time.current;
-    console.log(currentTime)
-    let currentSecond = String(Math.floor(currentTime / 1000));
-    console.log(currentSecond)
-    // this.notesObject[currentSecond] = 'some note'
-    console.log(this.notesObject)
+  setDomElement(){
+      //   const viewContainerRef = this.vcRef;
+  //   const component = viewContainerRef.createComponent(TimeSignatureComponent);
+  //   component.instance.videoComponentRef = this;
+  //   component.instance.assignedId = locationMetadata.currentSecond;
+  //   component.instance.locationMetadata = locationMetadata;
   }
 
-  addTimeSignatureToDom(locationMetadata: any) {
-    console.log('locationMetadata:' + locationMetadata)
-    const viewContainerRef = this.vcRef;
-    const component = viewContainerRef.createComponent(TimeSignatureComponent);
-    component.instance.videoComponentRef = this;
-    component.instance.assignedId = locationMetadata.currentSecond;
-    component.instance.locationMetadata = locationMetadata;
-    this.notesObject[locationMetadata.currentSecond] = {
-      locationMetadata:locationMetadata,
-      note:' '
-    }
-    console.log('notesObject:')
-    console.log(this.notesObject)
-    this.setSelectedSignature(locationMetadata.currentSecond)
-    // this.selectedSignature = this.notesObject[locationMetadata.currentSecond];
-  }
 
-  timeSignatureStyles(locationMetadata?: any) {
-    // console.log(locationMetadata);
-    // console.log(Number(locationMetadata.currentSecond))
-    return {
-      'position': 'absolute',
-      'left': Number(locationMetadata.currentSecond) * locationMetadata.pixelsPerSecond + 7 + 'px',
-      'top': this.playerRatios.sliderLocation.y + 25 + 'px',
-      'color': 'red'
-    }
-  }
 
+/* 
   getScrubBar() {
-    // Get time codes
-    let currentTime = this.api.time.current;
-    console.log(currentTime)
-    let currentSecond = String(currentTime / 1000);
-    console.log(currentSecond)
-    // this.notesObject[currentSecond] = 'some note'
-    console.log(this.notesObject)
-    // this.notesObject[currentSecond] = 'notes';
-
     // Get dimensions
     let barWidth = this.scrubBar.elem.clientWidth;
     console.log('barWidth', barWidth)
@@ -122,24 +78,27 @@ export class VideoComponent implements OnInit, AfterViewChecked {
 
     let slider = this.api.videogularElement.getElementsByClassName("slider")[0]
     let sliderLocation = slider.getBoundingClientRect();
-    this.playerRatios.sliderLocation = sliderLocation;
 
     // Set to html
-    this.addAnnotationToHtml(currentSecond, sliderLocation, pixelsPerSecond)
+    return sliderLocation
   }
+*/
 
-  addAnnotationToHtml(currentSecond: any, sliderLocation: any, pixelsPerSecond: any) {
-    let locationMetadata: any = {
-      currentSecond: currentSecond,
-      pixelsPerSecond: pixelsPerSecond,
-      y_sliderOffset: 15
+  annotate() {
+    let currentTime = this.formatSignature(this.api.time.current);
+    let foundSignatureObject;
+    foundSignatureObject = this.notesArray.find((savedNotesSignatured) => {
+      return String(currentTime) === savedNotesSignatured.timeSignature;
+    })
+    if (!foundSignatureObject) {
+      this.selectedSignatureObject = {
+        timeSignature: currentTime,
+        notes: ''
+      };
+      this.notesArray.push(this.selectedSignatureObject);
+    } else {
+      this.selectedSignatureObject = foundSignatureObject;
     }
-
-    this.addTimeSignatureToDom(locationMetadata)
-  }
-
-  adjustAnnotations() {
-
   }
 
   ngOnInit(): void {
@@ -152,10 +111,7 @@ export class VideoComponent implements OnInit, AfterViewChecked {
           })
       }
       )
-      this.api.getDefaultMedia().subscriptions.seeking.subscribe((res:Event) => {
-        // this.setSelectedSignature(res.timeStamp)
-        console.log(this.setSelectedSignature(res.timeStamp))
-      })
+
   }
   ngAfterViewChecked(): void {
     // this.api.videogularElement.
@@ -173,21 +129,6 @@ export class VideoComponent implements OnInit, AfterViewChecked {
     );
   }
 
-  getTime() {
-    console.log('whats thi')
-    console.log('this.api.time')
-    console.log(this.api.time)
-    console.log('console.log(this.api.duration):')
-    console.log(console.log(this.api.duration))
-  }
-
-  getSlider() {
-
-  }
-
-  getScrubBarWidth() {
-
-  }
   //TODO: Fill in the below functions
   fileOver(idkYet: any) {
 

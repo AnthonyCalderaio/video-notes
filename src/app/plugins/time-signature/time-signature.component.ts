@@ -12,7 +12,7 @@ export class TimeSignatureComponent {
   constructor(public component:VideoComponent){}
   videoComponentRef: any
   assignedId = '';
-  locationMetadata = {}
+  locationMetadata:any = {}
   ngOnInit(): void {
   }
 

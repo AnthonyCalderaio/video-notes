@@ -20,18 +20,8 @@
 
     <div #noteBar style="width:100%"></div>
 
-    <span (click)="addTime()">getTime</span>
+    <span (click)="annotate()">Annotate</span>
     <pre></pre>
-    <span (click)="getScrubBar()">Annotate</span>
-    <pre></pre>
-    <span (click)="printSignature()">printSignature</span>
-    <pre></pre>
-    <span (click)="printAllNotes()">print all notes</span>
-    <pre></pre>
-    <span (click)="handleDrag()">handleDrag</span>
-    <pre></pre>
-    
-    <app-text-area [selectedSignature]="selectedSignature"></app-text-area>
-    
+    <app-text-area [notesArray]="notesArray"  [selectedSignatureObject]="selectedSignatureObject"></app-text-area>
     
 </div>

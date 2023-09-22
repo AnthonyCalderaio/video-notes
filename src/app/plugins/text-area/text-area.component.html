@@ -1,3 +1,5 @@
-<textarea  style="background-color:black;color:white; width:90%;" [(ngModel)]='selectedSignature.note' rows="30" cols="50"></textarea>
+<span *ngFor="let timeSignature of notesArray">{{timeSignature.timeSignature}}</span>
+<textarea *ngIf="noteExists()" style="background-color:black;color:white; width:90%; height:200px;" [(ngModel)]='selectedSignatureObject.note' rows="30" cols="50"></textarea>
 <!-- {{note}} -->
 <!-- *ngIf="(typeof selectedSignature.note === 'string')" -->
+<!-- [(ngModel)]='selectedSignature.note' -->
