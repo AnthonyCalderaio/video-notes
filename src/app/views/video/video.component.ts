@@ -99,6 +99,7 @@ export class VideoComponent implements OnInit, AfterViewChecked {
     } else {
       this.selectedSignatureObject = foundSignatureObject;
     }
+    this.seekTo(this.selectedSignatureObject.timeSignature)
   }
 
   ngOnInit(): void {
@@ -136,5 +137,10 @@ export class VideoComponent implements OnInit, AfterViewChecked {
 
   fileLeave(idkYet: any) {
 
+  }
+
+  selectSignature(signatureObject: any){
+    this.selectedSignatureObject = signatureObject;
+    this.seekTo(this.selectedSignatureObject.timeSignature)
   }
 }

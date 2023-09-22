@@ -1,0 +1,15 @@
+.container-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.selectedSignature {
+    color: red;
+}
+
+.time-signature-list {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,5 +1,10 @@
-<span *ngFor="let timeSignature of notesArray">{{timeSignature.timeSignature}}</span>
-<textarea *ngIf="noteExists()" style="background-color:black;color:white; width:90%; height:200px;" [(ngModel)]='selectedSignatureObject.note' rows="30" cols="50"></textarea>
-<!-- {{note}} -->
-<!-- *ngIf="(typeof selectedSignature.note === 'string')" -->
-<!-- [(ngModel)]='selectedSignature.note' -->
+<div class="container-column">
+    <span class="time-signature-list">
+        <p *ngFor="let notesObject of notesArray"
+            (click)="selectTime(notesObject)"
+            [ngClass]="{'selectedSignature': notesObject.timeSignature === selectedSignatureObject.timeSignature}">
+            {{notesObject.timeSignature}}&nbsp;&nbsp;&nbsp; </p>
+    </span>
+    <textarea *ngIf="noteExists()" style="background-color:black;color:white; width:90%; height:200px;"
+        [(ngModel)]='selectedSignatureObject.notes' rows="30" cols="50"></textarea>
+</div>

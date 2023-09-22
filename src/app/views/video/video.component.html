@@ -19,9 +19,8 @@
     </vg-player>
 
     <div #noteBar style="width:100%"></div>
-
     <span (click)="annotate()">Annotate</span>
     <pre></pre>
-    <app-text-area [notesArray]="notesArray"  [selectedSignatureObject]="selectedSignatureObject"></app-text-area>
+    <app-text-area [notesArray]="notesArray"  [selectedSignatureObject]="selectedSignatureObject" (changeSelectedTime)="selectSignature($event)"></app-text-area>
     
 </div>

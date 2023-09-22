@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { interval } from 'rxjs';
 
 @Component({
@@ -10,6 +10,8 @@ export class TextAreaComponent {
 
   @Input('selectedSignatureObject') selectedSignatureObject: any = {};
   @Input('notesArray') notesArray: any;
+  @Output() changeSelectedTime = new EventEmitter();
+
   timeSignatureArray: any[] = [];
 
   ngOnInit(): void {
@@ -24,7 +26,12 @@ export class TextAreaComponent {
     // interval(1000).subscribe(
     //   res => console.log(this.timeSignatureArray)
     // )
-    // interval(1000).subscribe(res => console.log(this.notesArray))
+    interval(1000).subscribe(res => {
+      console.log('this.notesArray')
+      console.log(this.notesArray)
+      console.log('selectedSignatureObject')
+      console.log(this.selectedSignatureObject)
+    })
   }
 
 
@@ -33,6 +40,10 @@ export class TextAreaComponent {
     // console.log('this.selectedSignature.note:')
     // console.log(this.selectedSignature.note)
     return typeof this.selectedSignatureObject?.notes === 'string';
+  }
+
+  selectTime(selectedTimeObject:any){
+    this.changeSelectedTime.emit(selectedTimeObject);
   }
 
 }
