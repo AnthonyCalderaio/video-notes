@@ -2,9 +2,7 @@ import { Component, Input, OnInit, ViewChild, AfterViewChecked, AfterContentChec
 import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
-import { TimeSignatureComponent } from 'src/app/plugins/time-signature/time-signature.component';
-import { ObjectUnsubscribedErrorCtor } from 'rxjs/internal/util/ObjectUnsubscribedError';
-
+import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 
 @Component({
   selector: 'app-video',
@@ -20,11 +18,9 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   src: any = undefined;
   api!: VgApiService;
 
+  notesArray: TimeSignatureObject[] = []
 
-  // All notes for page
-  notesArray: any[] = []
-
-  selectedSignatureObject: any = {};
+  selectedSignatureObject!: TimeSignatureObject;
 
   constructor(private route: ActivatedRoute, private storageService: StorageService) { }
 
@@ -58,10 +54,10 @@ export class VideoComponent implements OnInit, AfterViewChecked {
 
   setDomElement(){
       //   const viewContainerRef = this.vcRef;
-  //   const component = viewContainerRef.createComponent(TimeSignatureComponent);
-  //   component.instance.videoComponentRef = this;
-  //   component.instance.assignedId = locationMetadata.currentSecond;
-  //   component.instance.locationMetadata = locationMetadata;
+      //   const component = viewContainerRef.createComponent(TimeSignatureComponent);
+      //   component.instance.videoComponentRef = this;
+      //   component.instance.assignedId = locationMetadata.currentSecond;
+      //   component.instance.locationMetadata = locationMetadata;
   }
 
 
@@ -86,20 +82,20 @@ export class VideoComponent implements OnInit, AfterViewChecked {
 
   annotate() {
     let currentTime = this.formatSignature(this.api.time.current);
-    let foundSignatureObject;
-    foundSignatureObject = this.notesArray.find((savedNotesSignatured) => {
+    let foundSignatureObject: TimeSignatureObject;
+    foundSignatureObject = this.notesArray.find((savedNotesSignatured: TimeSignatureObject) => {
       return String(currentTime) === savedNotesSignatured.timeSignature;
-    })
+    }) as TimeSignatureObject
     if (!foundSignatureObject) {
       this.selectedSignatureObject = {
         timeSignature: currentTime,
         notes: ''
-      };
+      } as TimeSignatureObject;
       this.notesArray.push(this.selectedSignatureObject);
     } else {
       this.selectedSignatureObject = foundSignatureObject;
     }
-    this.seekTo(this.selectedSignatureObject.timeSignature)
+    this.seekTo(this.selectedSignatureObject?.timeSignature)
   }
 
   ngOnInit(): void {
@@ -140,7 +136,7 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   }
 
   selectSignature(signatureObject: any){
-    this.selectedSignatureObject = signatureObject;
-    this.seekTo(this.selectedSignatureObject.timeSignature)
+    this.selectedSignatureObject = signatureObject as TimeSignatureObject;
+    this.seekTo(this.selectedSignatureObject?.timeSignature)
   }
 }

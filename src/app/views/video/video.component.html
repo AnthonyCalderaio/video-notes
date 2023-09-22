@@ -1,5 +1,5 @@
-<div>
-    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)">
+<div style="display: flex; justify-content:center; align-items:center;flex-direction:column;">
+    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" style="width: 1000px;">
         <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
         <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">

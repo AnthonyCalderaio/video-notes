@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { interval } from 'rxjs';
+import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 
 @Component({
   selector: 'app-text-area',
@@ -8,37 +9,17 @@ import { interval } from 'rxjs';
 })
 export class TextAreaComponent {
 
-  @Input('selectedSignatureObject') selectedSignatureObject: any = {};
-  @Input('notesArray') notesArray: any;
+  @Input('selectedSignatureObject') selectedSignatureObject!: TimeSignatureObject;
+  @Input('notesArray') notesArray: TimeSignatureObject[] = [];
   @Output() changeSelectedTime = new EventEmitter();
 
-  timeSignatureArray: any[] = [];
+  timeSignatureArray: TimeSignatureObject[] = [];
 
-  ngOnInit(): void {
-    console.log('this.noteExists()');
-    console.log(this.noteExists())
-
-    // console.log('notesTimesList:');
-    // this.timeSignatureArray = Object.keys(this.notesObject).map(timeSignature => {
-    //   console.log(timeSignature)
-    //   return timeSignature;
-    // })
-    // interval(1000).subscribe(
-    //   res => console.log(this.timeSignatureArray)
-    // )
-    interval(1000).subscribe(res => {
-      console.log('this.notesArray')
-      console.log(this.notesArray)
-      console.log('selectedSignatureObject')
-      console.log(this.selectedSignatureObject)
-    })
-  }
+  ngOnInit(): void { }
 
 
 
   noteExists() {
-    // console.log('this.selectedSignature.note:')
-    // console.log(this.selectedSignature.note)
     return typeof this.selectedSignatureObject?.notes === 'string';
   }
 
