@@ -3,7 +3,7 @@
         <p *ngFor="let notesObject of notesArray"
             (click)="selectTime(notesObject)"
             [ngClass]="{'selectedSignature': notesObject.timeSignature === selectedSignatureObject.timeSignature}">
-            {{notesObject.timeSignature}}&nbsp;&nbsp;&nbsp; </p>
+            {{notesObject.timeSignature}}&nbsp;&nbsp;&nbsp;</p>
     </span>
     <textarea *ngIf="noteExists()" style="background-color:black;color:white; width:90vw; height: 100%; overflow: hidden;"
         [(ngModel)]='selectedSignatureObject.notes' rows="5" cols="20"></textarea>

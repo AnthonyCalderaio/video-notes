@@ -20,7 +20,6 @@ export class SpinnerComponent {
   }
 
   handleLoadingVerbiage() {
-    console.log('ran')
     if (this.loadingVerbiage === '...') {
       this.loadingVerbiage = '.'
     } else {

@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { interval } from 'rxjs';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 
 @Component({
@@ -9,7 +8,7 @@ import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.in
 })
 export class TextAreaComponent {
 
-  @Input('selectedSignatureObject') selectedSignatureObject!: TimeSignatureObject;
+  @Input('selectedSignatureObject') selectedSignatureObject: any;
   @Input('notesArray') notesArray: TimeSignatureObject[] = [];
   @Output() changeSelectedTime = new EventEmitter();
 
@@ -17,7 +16,9 @@ export class TextAreaComponent {
 
   ngOnInit(): void { }
 
-
+  ngOnChanges(changes: SimpleChanges): void {
+    
+  }
 
   noteExists() {
     return typeof this.selectedSignatureObject?.notes === 'string';
