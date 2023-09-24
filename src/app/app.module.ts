@@ -16,6 +16,7 @@ import { TimeSignatureComponent } from './plugins/time-signature/time-signature.
 import { TextAreaComponent } from './plugins/text-area/text-area.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { FormsModule } from '@angular/forms';
+import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     VideoComponent,
     SpinnerComponent,
     TimeSignatureComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    MinutesFormatPipe
   ],
   imports: [
     BrowserModule,

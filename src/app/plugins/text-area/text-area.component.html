@@ -1,10 +1,8 @@
 <div class="container-column">
     <span class="time-signature-list">
-        <p *ngFor="let notesObject of notesArray"
-            (click)="selectTime(notesObject)"
+        <p *ngFor="let notesObject of notesArray" class="noteBarSignatureItem clickable" (click)="selectTime(notesObject)"
             [ngClass]="{'selectedSignature': notesObject.timeSignature === selectedSignatureObject.timeSignature}">
-            {{notesObject.timeSignature}}&nbsp;&nbsp;&nbsp;</p>
+            {{notesObject.timeSignature | minutesFormat}}&nbsp;&nbsp;&nbsp;</p>
     </span>
-    <textarea *ngIf="noteExists()" style="background-color:black;color:white; width:90vw; height: 100%; overflow: hidden;"
-        [(ngModel)]='selectedSignatureObject.notes' rows="5" cols="20"></textarea>
+    <textarea *ngIf="noteExists()" class="text-area" [(ngModel)]='selectedSignatureObject.notes' rows="5" cols="20"></textarea>
 </div>

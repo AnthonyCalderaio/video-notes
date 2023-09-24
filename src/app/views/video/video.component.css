@@ -13,3 +13,39 @@
     font-size: 18px;
     margin: 10px;
 }
+
+.save-button {
+    background-color: grey;
+    padding: 10px;
+    border-radius: 2px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 10px;
+}
+
+.button-bar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.target {
+    display: contents;
+}
+
+.video-text-container {
+    display: flex; 
+    justify-content:space-between; 
+    align-items:center;
+    flex-direction:row; 
+    height: 600px;
+    border: 2px solid black ;
+}
+
+.button {
+    cursor: pointer;
+}

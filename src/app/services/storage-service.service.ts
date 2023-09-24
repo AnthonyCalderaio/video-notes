@@ -4,6 +4,7 @@ import { Observable, of, from, switchMap } from 'rxjs';
 import { UtilityService } from './utility.service';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SavedVideo } from '../interfaces/saved-video.interface';
+import { TimeSignatureObject } from '../interfaces/time-signature-object.interface';
 
 
 @Injectable({
@@ -13,7 +14,7 @@ export class StorageService {
 
   constructor(private utilityService: UtilityService) { }
 
-  saveVideos(videoList: NgxFileDropEntry[]): Observable<any[]> {
+  saveUploadedVideo(videoList: NgxFileDropEntry[]): Observable<any[]> {
     return from(this.utilityService.extractVideoResources(videoList))
       .pipe(
         switchMap((extractedVideoArray: SavedVideo[]) => {
@@ -46,7 +47,21 @@ export class StorageService {
   }
 
   getVideos(): Observable<any[]> {
-    return from(get('videos').then((saveVideos: any) => JSON.parse(saveVideos)));
+    return from(get('videos').then((savedVideos: any) => JSON.parse(savedVideos)));
+  }
+
+  saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[]) {
+    this.getVideos().subscribe(videos => {
+      videos[index].notes = notesArray;
+      this.updateVideoObject(videos).subscribe();
+    })
+  }
+  updateVideoObject(videos: any) {
+    return from(set('videos', JSON.stringify(videos))
+      .then(() => {
+        // setting completed
+        return of(videos)
+      }))
   }
 
   clearAllVideos() {

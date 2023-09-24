@@ -1,9 +1,9 @@
-import { Component, Input, OnInit, ViewChild, AfterViewChecked, AfterContentChecked, HostListener, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
-import { interval } from 'rxjs';
+import { interval, take } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { LoadingNotificationService } from 'src/app/services/loading-notificatio
   templateUrl: './video.component.html',
   styleUrls: ['./video.component.css']
 })
-export class VideoComponent implements OnInit, AfterViewChecked {
+export class VideoComponent implements OnInit {
   @ViewChild('scrubBar') scrubBar: any;
 
   @ViewChild('noteBar', { read: ViewContainerRef }) vcRef!: ViewContainerRef;
@@ -20,9 +20,16 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   src: any = undefined;
   api!: VgApiService;
 
-  notesArray: TimeSignatureObject[] = []
+  savedVideoIndex!: number;
 
-  selectedSignatureObject!: TimeSignatureObject;
+  initialNotesObject: TimeSignatureObject = {
+    timeSignature: '0',
+    notes: ''
+  };
+
+  notesArray: TimeSignatureObject[] = [this.initialNotesObject];
+
+  selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
 
   constructor(
@@ -33,15 +40,25 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   // All subscriptions: this.api.getDefaultMedia() 
 
   ngOnInit(): void {
+    // Set Video src
     this.route.queryParams
       .subscribe(queryParams => {
         this.storageService
           .getVideos()
           .subscribe((storedVideos) => {
             this.src = storedVideos[queryParams['index']].base64;
+            this.savedVideoIndex = queryParams['index'];
           })
-      }
-      )
+      });
+    // Get notes metadata
+    this.storageService.getVideos()
+    .pipe(take(1))
+    .subscribe(
+      retreivedVideos => {
+        if (retreivedVideos[this.savedVideoIndex]?.notes) {
+          this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
+        }
+      });
 
     // TODO: make this more efficient.
     this.loader.show()
@@ -58,16 +75,16 @@ export class VideoComponent implements OnInit, AfterViewChecked {
   handleDrag() {
     this.api.getDefaultMedia().subscriptions.seeking.subscribe((res: Event) => {
 
-      this.adjustTimeAndPReventLoop()
+      this.adjustTimeAndPreventLoop()
     })
   }
 
-  adjustTimeAndPReventLoop(){
-    if(this.adjustTimeFloat){
+  adjustTimeAndPreventLoop() {
+    if (this.adjustTimeFloat) {
       this.seekTo(Number(this.formatSignature(this.api.time.current)))
       this.adjustTimeFloat = false;
-    }else{
-      this.adjustTimeFloat = true
+    } else {
+      this.adjustTimeFloat = true;
     }
   }
 
@@ -95,8 +112,11 @@ export class VideoComponent implements OnInit, AfterViewChecked {
     foundSignatureObject = this.setCurrentTimeSignature(signature);
     if (foundSignatureObject) {
       this.selectedSignatureObject = foundSignatureObject;
-    }else{
-      this.selectedSignatureObject = new Object() as any;
+    } else {
+      this.selectedSignatureObject = JSON.parse(JSON.stringify({
+        timeSignature: '-1',
+        notes: ''
+      }));
     }
   }
 
@@ -150,24 +170,26 @@ export class VideoComponent implements OnInit, AfterViewChecked {
         notes: ''
       } as TimeSignatureObject;
       this.notesArray.push(this.selectedSignatureObject);
+      this.notesArray = this.sortNotesObject(this.notesArray);
     } else {
       this.selectedSignatureObject = foundSignatureObject;
     }
-    this.seekTo(this.selectedSignatureObject?.timeSignature)
+    // this.seekTo(this.selectedSignatureObject?.timeSignature)
   }
 
-  setCurrentTimeSignature(currentTime: any){
+  sortNotesObject(notesArray: any[]) {
+    return notesArray.sort((a, b) => Number(a.timeSignature) < Number(b.timeSignature) ? -1 : Number(a.timeSignature) > Number(b.timeSignature) ? 1 : 0);
+  }
+
+  setCurrentTimeSignature(currentTime: any) {
     return this.notesArray.find((savedNotesSignatured: TimeSignatureObject) => {
       return String(currentTime) === savedNotesSignatured.timeSignature;
     }) as TimeSignatureObject;
   }
 
-
-  ngAfterViewChecked(): void {
-    // this.api.videogularElement.
+  saveAllNotes() {
+    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray);
   }
-
-
 
   //TODO: Fill in the below functions
   fileOver(idkYet: any) {
@@ -178,26 +200,6 @@ export class VideoComponent implements OnInit, AfterViewChecked {
 
   }
 
+  
 
-  // customHandleSeek(seekThis?: any): Observable<any> {
-  //   // return this.api.currentTime = Number(this.formatSignature(this.api.time.current));
-  //   console.log('haltLoop')
-  //   console.log(this.haltLoop)
-  //   return this.api.getDefaultMedia().subscriptions.seeked
-  //   .pipe(
-  //     switchMap(res => {
-  //       if(this.haltLoop){
-  //         console.log('res1')
-  //         return of(this.api.seekTime(Number(this.formatSignature(this.api.time.current))))
-  //         // return of(res)
-  //       }else{
-  //         console.log('res2')
-  //         return of(res)
-  //       }
-  //       // console.log('res')
-  //       // console.log(res)
-  //       // return of(res)
-  //     })
-  //   );
-  // }
 }

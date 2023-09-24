@@ -1,0 +1,9 @@
+.clickable {
+    cursor: pointer;
+}
+
+.home-button {
+    font-size: 35px; 
+    color:white; 
+    margin-top:10px;
+}

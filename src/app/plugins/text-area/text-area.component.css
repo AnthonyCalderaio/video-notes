@@ -3,13 +3,29 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    height: 100%;
 }
 
 .selectedSignature {
-    color: red;
+    color: green;
 }
 
 .time-signature-list {
     display: flex;
     flex-direction: row;
+}
+
+.noteBarSignatureItem {
+    margin:0px !important;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.text-area {
+    background-color:black;color:white; width:720px; overflow: hidden;resize: none;
+    width:  calc(45vw - 20px);
+    height: 100%;
+    resize: none;
 }

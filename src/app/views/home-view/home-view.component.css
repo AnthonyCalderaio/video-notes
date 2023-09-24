@@ -39,3 +39,7 @@
     margin-right: 0px;
     margin-left: 10px;
 }
+
+.clickable {
+    cursor: pointer;
+}

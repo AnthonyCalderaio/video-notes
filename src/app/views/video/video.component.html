@@ -1,26 +1,38 @@
-<div style="display: flex; justify-content:center; align-items:center;flex-direction:column;">
-    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" style="width: 1000px;">
-        <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
-        <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
-            <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
-        </video>
+<div style="width: 100%; display:flex; justify-content:center; padding-top:25px;">
+    <div style="">
+        <div class="video-text-container">
+            
+            <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" style="width: calc(50vw); height:100%;">
+                <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
+                <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
+                    <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+                </video>
 
-        <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
-            <vg-scrub-bar #scrubBar>
-                <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
-            </vg-scrub-bar>
-            <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
-            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
-            <vg-track-selector></vg-track-selector>
-            <vg-play-pause></vg-play-pause>
-            <vg-playback-button></vg-playback-button>
-            <vg-track-selector></vg-track-selector>
-        </vg-controls>
-    </vg-player>
-    
-    <div #noteBar style="width:100%"></div>
-    <span (click)="annotate()" class="annotate-button">Annotate</span>
-    <pre></pre>
-    <app-text-area [notesArray]="notesArray"  [selectedSignatureObject]="selectedSignatureObject" (changeSelectedTime)="selectSignature($event)"></app-text-area>
-    
+                <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
+                    <vg-scrub-bar #scrubBar>
+                        <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                    <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+                    <vg-track-selector></vg-track-selector>
+                    <vg-play-pause></vg-play-pause>
+                    <vg-playback-button></vg-playback-button>
+                    <vg-track-selector></vg-track-selector>
+                </vg-controls>
+            </vg-player>
+
+            <div style="height:100%;">
+                <app-text-area 
+                [notesArray]="notesArray" 
+                [selectedSignatureObject]="selectedSignatureObject"
+                (changeSelectedTime)="selectSignature($event)"></app-text-area>
+            </div>
+            
+
+        </div>
+        <div class="button-bar">
+            <span (click)="annotate()" class="annotate-button button">New Note at {{formatSignature(api?.time?.current)}}</span>
+            <span (click)="saveAllNotes()" class="save-button button">Save</span>
+        </div>
+    </div>
 </div>

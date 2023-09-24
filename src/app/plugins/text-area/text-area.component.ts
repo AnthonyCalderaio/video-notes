@@ -16,9 +16,7 @@ export class TextAreaComponent {
 
   ngOnInit(): void { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
+  ngOnChanges(changes: SimpleChanges): void { }
 
   noteExists() {
     return typeof this.selectedSignatureObject?.notes === 'string';
