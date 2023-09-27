@@ -11,7 +11,7 @@ export class SpinnerComponent {
 
   constructor(public loader: LoadingNotificationService) { }
 
-  loadingVerbiage:string = '.';
+  loadingVerbiage:string = 'Loading';
 
   ngOnInit(): void {
     interval(200).subscribe(x => {
@@ -20,8 +20,8 @@ export class SpinnerComponent {
   }
 
   handleLoadingVerbiage() {
-    if (this.loadingVerbiage === '...') {
-      this.loadingVerbiage = '.'
+    if (this.loadingVerbiage === 'Loading...') {
+      this.loadingVerbiage = 'Loading'
     } else {
       this.loadingVerbiage = this.loadingVerbiage.concat('.')
     }

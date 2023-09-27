@@ -17,6 +17,7 @@ export class AppComponent {
   }
 
   navigateHome(){
+    console.log('hi')
     this.router.navigate(['/home']);
   }
 }

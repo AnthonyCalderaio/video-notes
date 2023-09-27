@@ -9,11 +9,13 @@ const {app, BrowserWindow} = require('electron');
       mainWindow = new BrowserWindow({
         width: 1000,
         height: 1000,
+        minWidth: 900,
+        minHeight: 900,
         webPreferences: {
           nodeIntegration: true
         }
       })
-      mainWindow.setResizable(false)
+      // mainWindow.setResizable(false)
 
       mainWindow.loadURL(
         url.format({

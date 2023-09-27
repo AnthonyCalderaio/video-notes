@@ -17,4 +17,5 @@ export class LoadingNotificationService {
   hide(){
     this.loadingSubject.next(false);
   }
+
 }

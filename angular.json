@@ -26,7 +26,6 @@
             ],
             "styles": [
               "node_modules/@videogular/ngx-videogular/fonts/videogular.css",
-              "@angular/material/prebuilt-themes/purple-green.css",
               "src/styles.css"
             ],
             "scripts": []
