@@ -1,53 +1,48 @@
 .player {
-    height: 50%;
+  height: 50%;
 }
 
 .annotate-button {
-    background-color: #265404;
-    /* padding: 10px; */
-    border-radius: 2px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 18px;
-    margin: 10px;
-    padding: 10px;
+  background-color: #265404;
+  border-radius: 2px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .save-button {
-    background-color: grey;
-    /* padding: 10px; */
-    border-radius: 2px;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    /* display: inline-block; */
-    font-size: 18px;
-    margin: 10px;
-    padding: 10px;
+  background-color: grey;
+  border-radius: 2px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .button-bar {
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .target {
-    display: contents;
+  display: contents;
 }
 
 .video-text-container {
-    display: flex; 
-    justify-content:space-between; 
-    align-items:center;
-    flex-direction:row; 
-    /* height: 600px; */
-    border: 2px solid black ;
-    height: 70vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  border: 2px solid black;
+  height: 70vh;
 }
 
 .button {
-    cursor: pointer;
+  cursor: pointer;
 }

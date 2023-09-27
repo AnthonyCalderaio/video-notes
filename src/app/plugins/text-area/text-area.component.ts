@@ -22,7 +22,7 @@ export class TextAreaComponent {
     return typeof this.selectedSignatureObject?.notes === 'string';
   }
 
-  selectTime(selectedTimeObject:any){
+  selectTime(selectedTimeObject: any) {
     this.changeSelectedTime.emit(selectedTimeObject);
   }
 

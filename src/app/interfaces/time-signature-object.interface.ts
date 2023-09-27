@@ -1,4 +1,4 @@
 export interface TimeSignatureObject {
-    timeSignature:string;
+    timeSignature: string;
     notes: string;
 }

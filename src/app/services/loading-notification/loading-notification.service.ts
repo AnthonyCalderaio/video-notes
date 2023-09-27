@@ -5,27 +5,22 @@ import { BehaviorSubject, interval } from 'rxjs';
   providedIn: 'root'
 })
 export class LoadingNotificationService {
- loadingIndicatorRef = document.getElementById('loadingIndicator')
-
-
+  public loadingIndicatorRef = document.getElementById('loadingIndicator');
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
 
   constructor() { }
 
-  show(){
+  show() {
     this.loadingSubject.next(true);
-    interval(1000).subscribe(res => {
-      console.log(this.loadingIndicatorRef )
+    interval(1000).subscribe(() => {
+      console.log(this.loadingIndicatorRef)
     })
-    
-    this.loadingIndicatorRef?.setAttribute("style","display:flex");
-
+    this.loadingIndicatorRef?.setAttribute("style", "display:flex");
   }
 
-  hide(){
+  hide() {
     this.loadingSubject.next(false);
-    this.loadingIndicatorRef?.setAttribute("style","display:none");
+    this.loadingIndicatorRef?.setAttribute("style", "display:none");
   }
-
 }

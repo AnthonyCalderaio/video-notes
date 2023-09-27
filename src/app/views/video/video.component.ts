@@ -52,13 +52,13 @@ export class VideoComponent implements OnInit {
       });
     // Get notes metadata
     this.storageService.getVideos()
-    .pipe(take(1))
-    .subscribe(
-      retreivedVideos => {
-        if (retreivedVideos[this.savedVideoIndex]?.notes) {
-          this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
-        }
-      });
+      .pipe(take(1))
+      .subscribe(
+        retreivedVideos => {
+          if (retreivedVideos[this.savedVideoIndex]?.notes) {
+            this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
+          }
+        });
 
     // TODO: make this more efficient.
     this.loader.show()
@@ -200,6 +200,6 @@ export class VideoComponent implements OnInit {
 
   }
 
-  
+
 
 }

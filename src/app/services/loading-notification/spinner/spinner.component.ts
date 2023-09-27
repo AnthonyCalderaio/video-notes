@@ -11,12 +11,12 @@ export class SpinnerComponent {
 
   constructor(public loader: LoadingNotificationService) { }
 
-  loadingVerbiage:string = 'Loading';
+  loadingVerbiage: string = 'Loading';
 
   ngOnInit(): void {
     interval(200).subscribe(x => {
       this.handleLoadingVerbiage()
-      });
+    });
   }
 
   handleLoadingVerbiage() {

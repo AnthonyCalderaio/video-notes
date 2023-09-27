@@ -1,45 +1,44 @@
 .appContainer {
-    height: 100%;
-    width: 100%;
-    background-color: rgb(30, 79, 98);
+  height: 100%;
+  width: 100%;
+  background-color: rgb(30, 79, 98);
 }
 .gridContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-top: 100px;
 }
 
 .gridTile {
-    height: 100px;
-    width:100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
-    margin-right:5px;
-    margin-left: 5px;
-    color:white;
-    text-align: center;
-    border-radius: 30px;
+  height: 100px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  margin-right: 5px;
+  margin-left: 5px;
+  color: white;
+  text-align: center;
+  border-radius: 30px;
 }
 
 /* span {
     margin: 0 10px;
 } */
 
-
 .gridTile:first-of-type {
-    margin-right: 10px;
-    margin-left: 0px;
+  margin-right: 10px;
+  margin-left: 0px;
 }
 
 .gridTile:last-of-type {
-    margin-right: 0px;
-    margin-left: 10px;
+  margin-right: 0px;
+  margin-left: 10px;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }

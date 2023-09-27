@@ -1,15 +1,16 @@
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .home-button {
-    font-size: 35px; 
-    color:white; 
-    margin-top:10px;
+  font-size: 35px;
+  color: white;
+  margin-top: 10px;
 }
 
 .app-spinner {
-    position:fixed;    position: fixed;
+  position: fixed;
+  position: fixed;
   position: fixed;
   top: 0px;
   font-size: 90px;
