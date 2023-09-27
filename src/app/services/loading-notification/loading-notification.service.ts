@@ -6,21 +6,23 @@ import { BehaviorSubject, interval } from 'rxjs';
 })
 export class LoadingNotificationService {
   public loadingIndicatorRef = document.getElementById('loadingIndicator');
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-  loading$ = this.loadingSubject.asObservable();
+
+  private loadingActiveSubject = new BehaviorSubject<boolean>(false);
+  loading$ = this.loadingActiveSubject.asObservable();
+
+  private loadingVerbiageSubject = new BehaviorSubject<string>('Loading');
+  loadingVerbiage$ = this.loadingVerbiageSubject.asObservable();
 
   constructor() { }
 
-  show() {
-    this.loadingSubject.next(true);
-    interval(1000).subscribe(() => {
-      console.log(this.loadingIndicatorRef)
-    })
+  show(verbiage = 'Loading') {
+    this.loadingVerbiageSubject.next(verbiage)
+    this.loadingActiveSubject.next(true);
     this.loadingIndicatorRef?.setAttribute("style", "display:flex");
   }
 
   hide() {
-    this.loadingSubject.next(false);
+    this.loadingActiveSubject.next(false);
     this.loadingIndicatorRef?.setAttribute("style", "display:none");
   }
 }

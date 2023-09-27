@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingNotificationService } from '../loading-notification.service';
-import { interval } from 'rxjs';
+import { BehaviorSubject, interval } from 'rxjs';
 
 @Component({
   selector: 'app-spinner',
@@ -13,11 +13,20 @@ export class SpinnerComponent {
 
   loadingVerbiage: string = 'Loading';
 
+
   ngOnInit(): void {
     interval(200).subscribe(x => {
       this.handleLoadingVerbiage()
     });
+    this.listenForVerbiageChange()
   }
+
+  listenForVerbiageChange() {
+    this.loader.loadingVerbiage$.subscribe(verbiageChange => {
+        this.loadingVerbiage = verbiageChange;
+      })
+  }
+
 
   handleLoadingVerbiage() {
     if (this.loadingVerbiage === 'Loading...') {

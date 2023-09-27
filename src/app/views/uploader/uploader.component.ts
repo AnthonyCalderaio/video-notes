@@ -28,7 +28,7 @@ export class UploaderComponent {
   dropped(droppedFiles: NgxFileDropEntry[]) {
     this.isLoading(true)
     this.storageService.saveUploadedVideo(droppedFiles)
-      .subscribe(res => { console.log('done:'); this.isLoading(false) })
+      .subscribe(res => { this.isLoading(false) })
 
   }
 

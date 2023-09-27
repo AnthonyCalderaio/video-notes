@@ -5,6 +5,7 @@ import { UtilityService } from './utility.service';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SavedVideo } from '../interfaces/saved-video.interface';
 import { TimeSignatureObject } from '../interfaces/time-signature-object.interface';
+import { LoadingNotificationService } from './loading-notification/loading-notification.service';
 
 
 @Injectable({
@@ -12,7 +13,9 @@ import { TimeSignatureObject } from '../interfaces/time-signature-object.interfa
 })
 export class StorageService {
 
-  constructor(private utilityService: UtilityService) { }
+  constructor(
+    private utilityService: UtilityService,
+    private loadingService: LoadingNotificationService) { }
 
   saveUploadedVideo(videoList: NgxFileDropEntry[]): Observable<any[]> {
     return from(this.utilityService.extractVideoResources(videoList))
@@ -51,9 +54,12 @@ export class StorageService {
   }
 
   saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[]) {
+    this.loadingService.show('Saving');
     this.getVideos().subscribe(videos => {
       videos[index].notes = notesArray;
-      this.updateVideoObject(videos).subscribe();
+      this.updateVideoObject(videos).subscribe(() => {
+        this.loadingService.hide();
+      });
     })
   }
   updateVideoObject(videos: any) {
