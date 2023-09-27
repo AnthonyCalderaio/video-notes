@@ -46,3 +46,12 @@
 .button {
   cursor: pointer;
 }
+
+.text-area-selector-container {
+  height: 100%;
+}
+
+.vg-player {
+  width: calc(50vw);
+  height: 100%;
+}

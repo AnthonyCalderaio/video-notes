@@ -42,3 +42,7 @@
 .clickable {
   cursor: pointer;
 }
+
+.delete-all-button {
+  color: white;
+}

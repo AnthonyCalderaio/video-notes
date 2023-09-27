@@ -1,5 +1,5 @@
 <div class="video-text-container">
-    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" style="width: calc(50vw); height:100%;">
+    <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player">
         <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
         <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
@@ -15,7 +15,7 @@
             <vg-playback-button></vg-playback-button>
         </vg-controls>
     </vg-player>
-    <div style="height: 100%">
+    <div class="text-area-selector-container">
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             (changeSelectedTime)="selectSignature($event)"></app-text-area>
     </div>
