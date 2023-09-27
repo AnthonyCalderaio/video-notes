@@ -7,3 +7,16 @@
     color:white; 
     margin-top:10px;
 }
+
+.app-spinner {
+    position:fixed;    position: fixed;
+  position: fixed;
+  top: 0px;
+  font-size: 90px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
