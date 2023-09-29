@@ -38,7 +38,7 @@ export class HomeViewComponent {
 
   navigateToVideoScreen(videoIndex: any) {
     let index = { index: videoIndex }
-    this.router.navigate(['video'], { queryParams: index })
+    this.router.navigate(['video'], { queryParams: index})
   }
 
   isLoading(loading: boolean) {

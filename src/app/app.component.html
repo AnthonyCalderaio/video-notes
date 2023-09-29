@@ -3,6 +3,9 @@
     <span (click)="navigateHome()" class="home-button clickable">
       Go Home
     </span>
+    <div *ngIf="centralService?.currentVideoTitle">
+      <span class="current-video-title">You are viewing: {{centralService.currentVideoTitle}}</span>
+    </div>
   </div>
   <router-outlet></router-outlet>
   <app-spinner id='loadingIndicator' class="app-spinner"></app-spinner>

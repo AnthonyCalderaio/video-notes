@@ -1,10 +1,17 @@
 <div class="container-column">
     <span class="time-signature-list">
-        <p *ngFor="let notesObject of notesArray" class="noteBarSignatureItem clickable"
+       <!-- <span>Previous</span> -->
+        <p *ngFor="let notesObject of notesArray | paginate: { itemsPerPage: 5, currentPage: page }" class="noteBarSignatureItem clickable"
             (click)="selectTime(notesObject)"
             [ngClass]="{'selectedSignature': notesObject.timeSignature === selectedSignatureObject.timeSignature}">
             {{notesObject.timeSignature | minutesFormat}}&nbsp;&nbsp;&nbsp;</p>
+            <pagination-controls (pageChange)="page = $event" previousLabel=""
+            nextLabel=""></pagination-controls>
+        <!-- <span>Next</span> -->
     </span>
     <textarea *ngIf="noteExists()" class="text-area" [(ngModel)]='selectedSignatureObject.notes' rows="5"
         cols="20"></textarea>
 </div>
+
+
+    

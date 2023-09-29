@@ -14,6 +14,9 @@ export class TextAreaComponent {
 
   timeSignatureArray: TimeSignatureObject[] = [];
 
+
+  page = 0;
+
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void { }

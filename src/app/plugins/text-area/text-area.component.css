@@ -13,10 +13,12 @@
 .time-signature-list {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  width: 95%;
 }
 
 .noteBarSignatureItem {
-  margin: 0px !important;
+  /* margin: 0px !important; */
 }
 
 .clickable {
@@ -33,3 +35,17 @@
   height: 100%;
   resize: none;
 }
+
+
+::ng-deep   pagination-controls {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  ::ng-deep   .ngx-pagination .current  {
+    background: darkcyan !important;
+    color: yellow;
+    border-radius: 12px;
+  }
+

@@ -17,6 +17,7 @@ import { TextAreaComponent } from './plugins/text-area/text-area.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { FormsModule } from '@angular/forms';
 import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
     VgOverlayPlayModule,
     VgBufferingModule,
     TextFieldModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent],

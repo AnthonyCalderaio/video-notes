@@ -5,7 +5,13 @@
 
 .app-header {
   background-color: rgb(128, 128, 128, 0.5);
-  padding-top: 15px;
+  /* padding-top: 15px; */
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  color: white;
+  padding-left: 10px;
+  min-height: 60px;
 }
 
 .clickable {
@@ -14,8 +20,11 @@
 
 .home-button {
   font-size: 35px;
-  color: white;
-  margin-top: 10px;
+  color: black;
+  /* border-right: solid; */
+  border-radius: 10px;
+  padding: 7px;
+  background: darkgrey;
 }
 
 .app-spinner {
@@ -30,4 +39,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.current-video-title {
+  padding-left: 10px;
 }

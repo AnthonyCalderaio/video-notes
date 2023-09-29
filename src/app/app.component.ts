@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { get, set } from 'idb-keyval';
+import { CentralService } from './services/central.service';
 
 
 @Component({
@@ -11,12 +12,14 @@ import { get, set } from 'idb-keyval';
 export class AppComponent {
 
 
-  constructor(private router: Router, private route: ActivatedRoute){}
+  constructor(private router: Router,
+    public centralService: CentralService) { }
 
   ngOnInit(): void {
+
   }
 
-  navigateHome(){
+  navigateHome() {
     this.router.navigate(['/home']);
   }
 }
