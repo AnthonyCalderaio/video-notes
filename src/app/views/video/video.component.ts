@@ -32,6 +32,7 @@ export class VideoComponent implements OnInit {
 
   selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
+  onKnownSignature = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -119,11 +120,13 @@ export class VideoComponent implements OnInit {
     foundSignatureObject = this.setCurrentTimeSignature(signature);
     if (foundSignatureObject) {
       this.selectedSignatureObject = foundSignatureObject;
+      this.onKnownSignature = true;
     } else {
       this.selectedSignatureObject = JSON.parse(JSON.stringify({
         timeSignature: '-1',
         notes: ''
       }));
+      this.onKnownSignature = false;
     }
   }
 
@@ -180,6 +183,7 @@ export class VideoComponent implements OnInit {
       this.notesArray = this.sortNotesObject(this.notesArray);
     } else {
       this.selectedSignatureObject = foundSignatureObject;
+      this.onKnownSignature = true;
     }
     // this.seekTo(this.selectedSignatureObject?.timeSignature)
   }

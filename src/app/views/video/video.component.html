@@ -13,6 +13,7 @@
             <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
             <vg-play-pause></vg-play-pause>
             <vg-playback-button></vg-playback-button>
+            <vg-volume></vg-volume>
         </vg-controls>
     </vg-player>
     <div class="text-area-selector-container">
@@ -21,7 +22,7 @@
     </div>
 </div>
 <div class="button-bar">
-    <span (click)="annotate()" class="annotate-button button">New Note at {{formatSignature(api?.time?.current)}}</span>
+    <span (click)="annotate()" class="annotate-button button"[ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+ formatSignature(api?.time?.current)}}  </span>
     <span (click)="saveAllNotes()" class="save-button button">Save</span>
     <span (click)="deleteOneNote()" class="delete-button button">Delete</span>
 </div>

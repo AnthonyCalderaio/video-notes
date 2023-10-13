@@ -58,6 +58,12 @@
   cursor: pointer;
 }
 
+.disabledButton {
+  background-color: grey;
+  opacity: 0.5;
+  cursor: auto;
+}
+
 .text-area-selector-container {
   height: 100%;
 }
