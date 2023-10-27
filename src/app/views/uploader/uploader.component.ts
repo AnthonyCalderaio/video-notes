@@ -34,6 +34,10 @@ export class UploaderComponent {
 
   ngOnInit(): void {
     this.isLoading(false)
+    this.setUserData()
+  }
+
+  setUserData() {
     this.storageService.getUserData().subscribe(
       (userData: UserData) => {
         this.userData = userData;
@@ -62,20 +66,21 @@ export class UploaderComponent {
   removeAllPending() {
     this.pendingFiles = [];
     this.pendingFilesMetadata = [];
+    this.resetPendingVariables();
+  }
+
+  resetPendingVariables(){
+    this.totalPendingBytes = 0;
   }
 
   // TODO: change type from any[]
   dropped(droppedFiles: any[]) {
     this.pendingFiles = [];
-    // this.estimatedStoredVideoLength = this.userData?.videoStorageUsed;
-    // this.estimatedStoredVideoBytes = this.userData?.videoStorageUsed;
     this.pendingFiles = droppedFiles;
     droppedFiles.forEach(async file => {
       let analyzedFile = await this.analyzeFileData(file);
       this.pendingFilesMetadata.push(analyzedFile)
-      // this.estimatedStoredVideoBytes = this.estimatedStoredVideoBytes + analyzedFile.size;
     })
-
     this.auditPendingVideos()
   }
 
@@ -91,9 +96,6 @@ export class UploaderComponent {
         tempFile['type'] = this.massageFileType(file)
         tempFile['size'] = file.size;
         this.totalPendingBytes = this.totalPendingBytes + (tempFile['size'] | 0);
-        // this.pendingFileMetadata.push(file.size) 
-        // this.totalEstimatedBytes = (this.totalEstimatedBytes || 0) + (this.userData?.videoStorageUsed || 0) + (tempFile['size'] || 0);
-        // this.totalEstimatedVideoLength = this.pendingFiles.length + this.userData.videoLengthUsed;
         resolve(tempFile)
       })
     })
@@ -116,7 +118,7 @@ export class UploaderComponent {
     this.storageService.saveUploadedVideo(this.pendingFiles)
       .subscribe(res => {
         this.isLoading(false);
-        this.pendingFiles.forEach((file, index) => { this.removeAllPending() })
+        this.pendingFiles.forEach((file, index) => { this.removeAllPending(); this.setUserData(); })
       })
   }
 
