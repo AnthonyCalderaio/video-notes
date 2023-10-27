@@ -14,6 +14,9 @@ export class TextAreaComponent {
 
   timeSignatureArray: TimeSignatureObject[] = [];
 
+
+  page = 0;
+
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void { }
@@ -22,7 +25,7 @@ export class TextAreaComponent {
     return typeof this.selectedSignatureObject?.notes === 'string';
   }
 
-  selectTime(selectedTimeObject:any){
+  selectTime(selectedTimeObject: any) {
     this.changeSelectedTime.emit(selectedTimeObject);
   }
 

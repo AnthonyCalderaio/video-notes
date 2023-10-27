@@ -5,6 +5,8 @@ import { UtilityService } from './utility.service';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SavedVideo } from '../interfaces/saved-video.interface';
 import { TimeSignatureObject } from '../interfaces/time-signature-object.interface';
+import { LoadingNotificationService } from './loading-notification/loading-notification.service';
+import { UserData } from '../interfaces/user-data.interface';
 
 
 @Injectable({
@@ -12,15 +14,23 @@ import { TimeSignatureObject } from '../interfaces/time-signature-object.interfa
 })
 export class StorageService {
 
-  constructor(private utilityService: UtilityService) { }
+  constructor(
+    private utilityService: UtilityService,
+    private loadingService: LoadingNotificationService) {
+    // set('userData',JSON.stringify({videoLengthUsed:0, videoStorageUsed:0}))
+  }
 
-  saveUploadedVideo(videoList: NgxFileDropEntry[]): Observable<any[]> {
-    return from(this.utilityService.extractVideoResources(videoList))
-      .pipe(
-        switchMap((extractedVideoArray: SavedVideo[]) => {
-          return this.saveExtractedVideos(extractedVideoArray)
-        })
-      )
+  public getVideos(): Observable<any[]> {
+    return from(get('videos').then((savedVideos: any) => JSON.parse(savedVideos)));
+  }
+
+  public getUserData() {
+    return from(get('userData').then(userData => JSON.parse(userData)))
+  }
+
+  public clearAllVideos() {
+    set('videos', '[]')
+    set('userData','{}')
   }
 
   private saveExtractedVideos(extractedVideoArray: SavedVideo[]): Observable<any> {
@@ -46,17 +56,17 @@ export class StorageService {
       ))
   }
 
-  getVideos(): Observable<any[]> {
-    return from(get('videos').then((savedVideos: any) => JSON.parse(savedVideos)));
-  }
-
   saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[]) {
+    this.loadingService.show('Saving');
     this.getVideos().subscribe(videos => {
       videos[index].notes = notesArray;
-      this.updateVideoObject(videos).subscribe();
+      this.updateVideoObject(videos).subscribe(() => {
+        this.loadingService.hide();
+      });
     })
   }
-  updateVideoObject(videos: any) {
+
+  private updateVideoObject(videos: any) {
     return from(set('videos', JSON.stringify(videos))
       .then(() => {
         // setting completed
@@ -64,7 +74,22 @@ export class StorageService {
       }))
   }
 
-  clearAllVideos() {
-    set('videos', '[]')
+  saveUploadedVideo(videoList: NgxFileDropEntry[]): Observable<any[]> {
+    return from(this.utilityService.extractVideoResources(videoList))
+      .pipe(
+        switchMap((extractedVideoArray: SavedVideo[]) => {
+          return this.saveExtractedVideos(extractedVideoArray)
+        })
+      )
   }
+
+  saveUserData(userFileSizes: any[]) {
+    let memoryBytesToAdd = userFileSizes.reduce((accumulator, file) => accumulator + file.size, 0);
+    this.getUserData().subscribe(
+      (userData: UserData) => {
+        set('userData', JSON.stringify({ videoLengthUsed: (userData.videoLengthUsed | 0) + (userFileSizes.length + 0), videoStorageUsed: (userData.videoStorageUsed | 0) + (memoryBytesToAdd | 0) }))
+      }
+    )
+  }
+
 }

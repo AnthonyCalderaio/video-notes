@@ -5,6 +5,7 @@ import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 import { interval, take } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-video',
@@ -31,11 +32,13 @@ export class VideoComponent implements OnInit {
 
   selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
+  onKnownSignature = false;
 
   constructor(
     private route: ActivatedRoute,
     private storageService: StorageService,
-    private loader: LoadingNotificationService) { }
+    private loader: LoadingNotificationService,
+    private centralService: CentralService) { }
 
   // All subscriptions: this.api.getDefaultMedia() 
 
@@ -52,15 +55,17 @@ export class VideoComponent implements OnInit {
       });
     // Get notes metadata
     this.storageService.getVideos()
-    .pipe(take(1))
-    .subscribe(
-      retreivedVideos => {
-        if (retreivedVideos[this.savedVideoIndex]?.notes) {
-          this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
-        }
-      });
+      .pipe(take(1))
+      .subscribe(
+        retreivedVideos => {
+          this.centralService.currentVideoTitle = retreivedVideos[this.savedVideoIndex]?.name;
+          if (retreivedVideos[this.savedVideoIndex]?.notes) {
+            this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
+          }
+        });
 
     // TODO: make this more efficient.
+    // Handle seeking drag
     this.loader.show()
     let checkPlayerIsReady = interval(1000).subscribe(playerReady => {
       if (playerReady) {
@@ -69,6 +74,10 @@ export class VideoComponent implements OnInit {
         this.loader.hide()
       }
     })
+  }
+
+  deleteOneNote(){
+    // this.notesArray[]
   }
 
 
@@ -112,11 +121,13 @@ export class VideoComponent implements OnInit {
     foundSignatureObject = this.setCurrentTimeSignature(signature);
     if (foundSignatureObject) {
       this.selectedSignatureObject = foundSignatureObject;
+      this.onKnownSignature = true;
     } else {
       this.selectedSignatureObject = JSON.parse(JSON.stringify({
         timeSignature: '-1',
         notes: ''
       }));
+      this.onKnownSignature = false;
     }
   }
 
@@ -174,7 +185,7 @@ export class VideoComponent implements OnInit {
     } else {
       this.selectedSignatureObject = foundSignatureObject;
     }
-    // this.seekTo(this.selectedSignatureObject?.timeSignature)
+    this.onKnownSignature = true;
   }
 
   sortNotesObject(notesArray: any[]) {
@@ -200,6 +211,6 @@ export class VideoComponent implements OnInit {
 
   }
 
-  
+
 
 }

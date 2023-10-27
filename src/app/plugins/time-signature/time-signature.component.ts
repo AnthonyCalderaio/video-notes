@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { VideoComponent } from 'src/app/views/video/video.component';
-// import { TimebarDirective } from 'src/app/directives/timebar.directive';
 
 
 @Component({
@@ -9,10 +8,10 @@ import { VideoComponent } from 'src/app/views/video/video.component';
   styleUrls: ['./time-signature.component.css']
 })
 export class TimeSignatureComponent {
-  constructor(public component:VideoComponent){}
+  constructor(public component: VideoComponent) { }
   videoComponentRef: any
   assignedId = '';
-  locationMetadata:any = {}
+  locationMetadata: any = {}
   ngOnInit(): void {
   }
 

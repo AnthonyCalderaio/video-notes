@@ -18,15 +18,15 @@ export class HomeViewComponent {
   loading = false;
 
   constructor(
-    public storageService: StorageService, 
-    public router:Router,
+    public storageService: StorageService,
+    public router: Router,
     private loader: LoadingNotificationService) { }
-  
+
   ngOnInit(): void {
     this.refreshVideoList()
   }
 
-  refreshVideoList(){
+  refreshVideoList() {
     this.isLoading(true);
     this.storageService
       .getVideos()
@@ -36,18 +36,22 @@ export class HomeViewComponent {
       })
   }
 
-  navigateToVideoScreen(videoIndex:any){
-    let index = {index:videoIndex}
-    this.router.navigate(['video'], {queryParams:index})
+  navigateToVideoScreen(videoIndex: any) {
+    let index = { index: videoIndex }
+    this.router.navigate(['video'], { queryParams: index })
   }
 
-  isLoading(loading:boolean){
-    if(loading){
+  navigateToDevTools() {
+        this.router.navigate(['developer-tools']);
+  }
+
+  isLoading(loading: boolean) {
+    if (loading) {
       this.loading = true;
       this.loader.show();
-    }else{
+    } else {
       this.loading = false;
       this.loader.hide();
     }
-}
+  }
 }
