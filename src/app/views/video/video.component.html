@@ -22,7 +22,7 @@
     </div>
 </div>
 <div class="button-bar">
-    <span (click)="annotate()" class="annotate-button button"[ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+ formatSignature(api?.time?.current)}}  </span>
+    <span (click)="annotate()" class="annotate-button button" [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+ formatSignature(api?.time?.current)}}  </span>
     <span (click)="saveAllNotes()" class="save-button button">Save</span>
-    <span (click)="deleteOneNote()" class="delete-button button">Delete</span>
+    <span (click)="deleteOneNote()" class="delete-button button" [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
 </div>

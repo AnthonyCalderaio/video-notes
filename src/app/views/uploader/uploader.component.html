@@ -1,5 +1,28 @@
+Currently have: {{userData?.videoLengthUsed}}/{{fileLengthLimit}}  uploaded.<br>
+Currently have: {{userData?.videoStorageUsed}}/{{byteLimit}} storage available.<br>
+<br> 
+Total upload byte size: {{totalPendingBytes}} <br>
+Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
+<br>
+<!-- Total estimated bytes{{this.totalEstimatedBytes}}<br>
+Total estimated length {{this.totalEstimatedBytes}}<br> -->
+<!-- {videosSaved:5, videoStorageUsed:1000 -->
 <div class="center uploaderContainer">
-  <ngx-file-drop dropZoneLabel="Drop video here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-    (onFileLeave)="fileLeave($event)">
+  <ngx-file-drop [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
+    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
   </ngx-file-drop>
+  <div class="pending-files-conatainer">
+   
+    <div *ngFor="let video of pendingFiles; let i=index">
+      Title:{{video?.relativePath}} <span (click)="removeVideFromPending(i)">Remove</span><br>
+      Size: {{pendingFilesMetadata[i].size}} <br>
+      Type: {{pendingFilesMetadata[i].type}} <br>
+      <br>
+    </div>
+  </div>
 </div>
+
+<!-- {{pendingFileSizes | json}} -->
+pendingFiles{{pendingFiles.length}}
+
+<div (click)="savePendingFiles()">SAVE</div>

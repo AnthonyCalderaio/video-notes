@@ -65,6 +65,7 @@ export class VideoComponent implements OnInit {
         });
 
     // TODO: make this more efficient.
+    // Handle seeking drag
     this.loader.show()
     let checkPlayerIsReady = interval(1000).subscribe(playerReady => {
       if (playerReady) {
@@ -76,7 +77,7 @@ export class VideoComponent implements OnInit {
   }
 
   deleteOneNote(){
-    
+    // this.notesArray[]
   }
 
 
@@ -183,9 +184,8 @@ export class VideoComponent implements OnInit {
       this.notesArray = this.sortNotesObject(this.notesArray);
     } else {
       this.selectedSignatureObject = foundSignatureObject;
-      this.onKnownSignature = true;
     }
-    // this.seekTo(this.selectedSignatureObject?.timeSignature)
+    this.onKnownSignature = true;
   }
 
   sortNotesObject(notesArray: any[]) {

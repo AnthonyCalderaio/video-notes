@@ -17,7 +17,8 @@ import { TextAreaComponent } from './plugins/text-area/text-area.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { FormsModule } from '@angular/forms';
 import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
-import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
+import { NgxPaginationModule } from 'ngx-pagination';
+import { DeveloperToolsComponent } from './views/developer-tools/developer-tools.component'; // <-- import the module
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
     SpinnerComponent,
     TimeSignatureComponent,
     TextAreaComponent,
-    MinutesFormatPipe
+    MinutesFormatPipe,
+    DeveloperToolsComponent
   ],
   imports: [
     BrowserModule,

@@ -38,7 +38,11 @@ export class HomeViewComponent {
 
   navigateToVideoScreen(videoIndex: any) {
     let index = { index: videoIndex }
-    this.router.navigate(['video'], { queryParams: index})
+    this.router.navigate(['video'], { queryParams: index })
+  }
+
+  navigateToDevTools() {
+        this.router.navigate(['developer-tools']);
   }
 
   isLoading(loading: boolean) {
