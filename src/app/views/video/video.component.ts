@@ -71,12 +71,12 @@ export class VideoComponent implements OnInit {
       if (playerReady) {
         checkPlayerIsReady.unsubscribe()
         this.handleDrag();
-        this.loader.hide()
+        this.loader.hide();
       }
     })
   }
 
-  deleteOneNote(){
+  deleteOneNote() {
     // this.notesArray[]
   }
 
@@ -172,6 +172,7 @@ export class VideoComponent implements OnInit {
   */
 
   annotate() {
+    this.api.pause();
     let currentTime = this.formatSignature(this.api.time.current);
     let foundSignatureObject: TimeSignatureObject;
     foundSignatureObject = this.setCurrentTimeSignature(currentTime)
@@ -187,6 +188,26 @@ export class VideoComponent implements OnInit {
     }
     this.onKnownSignature = true;
   }
+  // TODO: Can we put this in annotate and condense it?
+  foundTimeSignature(currentTime: any) {
+    let foundSignatureObject: TimeSignatureObject;
+    foundSignatureObject = this.setCurrentTimeSignature(currentTime)
+    if (!foundSignatureObject) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  // TODO: Improve this function 
+  handleUpdatedCurrentTime(time?: any) {
+    let currentTime = this.formatSignature(this.api.time.current);
+    let foundSignatureObject = this.setCurrentTimeSignature(currentTime)
+    if (foundSignatureObject) {
+      this.onKnownSignature = true;
+    } else {
+      this.onKnownSignature = false;
+    }
+  }
 
   sortNotesObject(notesArray: any[]) {
     return notesArray.sort((a, b) => Number(a.timeSignature) < Number(b.timeSignature) ? -1 : Number(a.timeSignature) > Number(b.timeSignature) ? 1 : 0);
@@ -199,7 +220,8 @@ export class VideoComponent implements OnInit {
   }
 
   saveAllNotes() {
-    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray);
+    this.api.pause();
+    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray, this.api);
   }
 
   //TODO: Fill in the below functions

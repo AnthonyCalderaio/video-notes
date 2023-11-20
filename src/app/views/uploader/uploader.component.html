@@ -4,9 +4,6 @@ Currently have: {{userData?.videoStorageUsed}}/{{byteLimit}} storage saved.<br>
 Total upload byte size: {{totalPendingBytes}} <br>
 Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
 <br>
-<!-- Total estimated bytes{{this.totalEstimatedBytes}}<br>
-Total estimated length {{this.totalEstimatedBytes}}<br> -->
-<!-- {videosSaved:5, videoStorageUsed:1000 -->
 <div class="center uploaderContainer">
   <ngx-file-drop [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
@@ -20,9 +17,8 @@ Total estimated length {{this.totalEstimatedBytes}}<br> -->
       <br>
     </div>
   </div>
+  <div (click)="savePendingFiles()">SAVE</div>
 </div>
 
 <!-- {{pendingFileSizes | json}} -->
 pendingFiles{{pendingFiles.length}}
-
-<div (click)="savePendingFiles()">SAVE</div>

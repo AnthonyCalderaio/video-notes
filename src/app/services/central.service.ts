@@ -11,7 +11,7 @@ export class CentralService {
 
   constructor() {
     interval(2000).subscribe(res => {
-      console.log(this.currentVideoTitle)
+      // console.log(this.currentVideoTitle)
     })
     this.title$.subscribe(
       res => {

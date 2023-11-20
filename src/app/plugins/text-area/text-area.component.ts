@@ -10,16 +10,21 @@ export class TextAreaComponent {
 
   @Input('selectedSignatureObject') selectedSignatureObject: any;
   @Input('notesArray') notesArray: TimeSignatureObject[] = [];
+  @Input() currentTime?: any;
   @Output() changeSelectedTime = new EventEmitter();
+  @Output() updateCurrentTimeEmit = new EventEmitter();
 
   timeSignatureArray: TimeSignatureObject[] = [];
-
 
   page = 0;
 
   ngOnInit(): void { }
 
-  ngOnChanges(changes: SimpleChanges): void { }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes) {
+      this.updateCurrentTimeEmit.emit(this.currentTime);
+    }
+  }
 
   noteExists() {
     return typeof this.selectedSignatureObject?.notes === 'string';

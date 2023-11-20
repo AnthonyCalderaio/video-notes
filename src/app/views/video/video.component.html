@@ -18,11 +18,16 @@
     </vg-player>
     <div class="text-area-selector-container">
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
-            (changeSelectedTime)="selectSignature($event)"></app-text-area>
+            [currentTime]="this.formatSignature(this?.api?.time?.current)"
+            (changeSelectedTime)="selectSignature($event)"
+            (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"></app-text-area>
     </div>
 </div>
 <div class="button-bar">
-    <span (click)="annotate()" class="annotate-button button" [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+ formatSignature(api?.time?.current)}}  </span>
+    <span (click)="annotate()" class="annotate-button button"
+        [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+
+        formatSignature(api?.time?.current)}} </span>
     <span (click)="saveAllNotes()" class="save-button button">Save</span>
-    <span (click)="deleteOneNote()" class="delete-button button" [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
+    <span (click)="deleteOneNote()" class="delete-button button"
+        [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
 </div>
