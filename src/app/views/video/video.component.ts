@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
-import { interval, take } from 'rxjs';
+import { interval, of, take } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { CentralService } from 'src/app/services/central.service';
 
@@ -33,6 +33,8 @@ export class VideoComponent implements OnInit {
   selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
   onKnownSignature = false;
+
+
 
   constructor(
     private route: ActivatedRoute,
@@ -72,12 +74,38 @@ export class VideoComponent implements OnInit {
         checkPlayerIsReady.unsubscribe()
         this.handleDrag();
         this.loader.hide();
+
+        // let timeSignal = signal(this.api.currentTime)
+        // let test = of(timeSignal);
+        // test.subscribe(res => {})
       }
     })
   }
 
-  deleteOneNote() {
-    // this.notesArray[]
+  deleteButton() {
+    this.deleteNoteHelper().then((_) => {
+      this.loader.hide()
+    })
+  }
+
+  async deleteNoteHelper() {
+    this.loader.show()
+    let timeSignatureNumberToRemove = this.selectedSignatureObject.timeSignature;
+    this.selectedSignatureObject = this.initialNotesObject;
+    return new Promise((resolve, reject) => {
+      this.notesArray = this.notesArray.filter((timeSignature, index) => {
+        if (index + 1 == this.notesArray.length) {
+          resolve(true);
+        }
+        if (timeSignature.timeSignature != timeSignatureNumberToRemove) {
+          resolve(true);
+          return true;
+        } else {
+          return false;
+        }
+      });
+    })
+
   }
 
 
