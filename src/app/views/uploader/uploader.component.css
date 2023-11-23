@@ -3,3 +3,41 @@
   background-color: rgb(30, 79, 98);
   padding: 10px;
 }
+
+.uploadFile {
+  border-radius: 8px;
+  border: 1px solid lightgray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.file-header {
+  justify-content: space-between;
+  display: flex;
+  margin-top: 10px;
+}
+
+.uploader-info-header {
+  padding: 10px;
+}
+
+.save-pending-uploads-button {
+  background-color: green;
+  border-radius: 2px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 10px;
+  padding: 10px;
+  margin-top:30px;
+}
+
+.button {
+  cursor: pointer;
+}
+
+::ng-deep .ngx-file-drop__drop-zone {
+  margin-bottom: 30px !important; 
+}

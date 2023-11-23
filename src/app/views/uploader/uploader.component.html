@@ -1,23 +1,30 @@
-Currently have: {{userData?.videoLengthUsed}}/{{fileLengthLimit}} files saved.<br>
-Currently have: {{userData?.videoStorageUsed}}/{{byteLimit}} storage saved.<br>
-<br> 
-Total upload byte size: {{totalPendingBytes}} <br>
-Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
-<br>
+<div class="uploader-info-header">
+  Currently have: {{userData?.videoLengthUsed}}/{{fileLengthLimit}} files saved.<br>
+  Currently have: {{userData?.videoStorageUsed}}/{{byteLimit}} storage saved.<br>
+  <br>
+  Total upload byte size: {{totalPendingBytes}} <br>
+  Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
+  <br>
+</div>
 <div class="center uploaderContainer">
-  <ngx-file-drop [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
+  <ngx-file-drop style="margin-bottom: 10px;" [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
   </ngx-file-drop>
   <div class="pending-files-conatainer">
-   
+
     <div *ngFor="let video of pendingFiles; let i=index">
-      Title:{{video?.relativePath}} <span (click)="removeVideFromPending(i)">Remove</span><br>
-      Size: {{pendingFilesMetadata[i].size}} <br>
-      Type: {{pendingFilesMetadata[i].type}} <br>
-      <br>
+      <div class="uploadFile">
+        <span class="file-header">Title:{{video?.relativePath}} <span (click)="removeVideFromPending(i)">Remove</span></span>
+        <br>
+        <span>Size: {{pendingFilesMetadata[i].size}}</span>
+        <br>
+        <span>Type: {{pendingFilesMetadata[i].type}}</span>
+        <br>
+        <br>
+      </div>
     </div>
   </div>
-  <div (click)="savePendingFiles()">SAVE</div>
+  <div *ngIf="pendingFiles.length" (click)="savePendingFiles()" class="save-pending-uploads-button button">SAVE</div>
 </div>
 
 <!-- {{pendingFileSizes | json}} -->
