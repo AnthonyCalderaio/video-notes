@@ -21,7 +21,14 @@ export class StorageService {
   }
 
   public getVideos(): Observable<any[]> {
-    return from(get('videos').then((savedVideos: any) => JSON.parse(savedVideos)));
+    return from(get('videos').then((savedVideos: any) => {
+      if (savedVideos) {
+        return JSON.parse(savedVideos)
+      }
+      else {
+        this.clearAllVideos();
+      }
+    }));
   }
 
   public getUserData() {
@@ -30,7 +37,7 @@ export class StorageService {
 
   public clearAllVideos() {
     set('videos', '[]')
-    set('userData','{}')
+    set('userData', '{}')
   }
 
   private saveExtractedVideos(extractedVideoArray: SavedVideo[]): Observable<any> {
