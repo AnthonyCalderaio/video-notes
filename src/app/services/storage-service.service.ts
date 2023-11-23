@@ -56,13 +56,12 @@ export class StorageService {
       ))
   }
 
-  saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[], api: any) {
+  saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[]) {
     this.loadingService.show('Saving');
     this.getVideos().subscribe(videos => {
       videos[index].notes = notesArray;
       this.updateVideoObject(videos).subscribe(() => {
         this.loadingService.hide();
-        api.play();
       });
     })
   }

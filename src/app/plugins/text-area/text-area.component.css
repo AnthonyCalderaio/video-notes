@@ -49,3 +49,10 @@
     border-radius: 12px;
   }
 
+.populated-signature {
+  color:green;
+}
+
+.selected-signature {
+  color:white;
+}

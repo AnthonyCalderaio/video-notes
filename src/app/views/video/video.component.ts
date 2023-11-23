@@ -232,8 +232,11 @@ export class VideoComponent implements OnInit {
     let foundSignatureObject = this.setCurrentTimeSignature(currentTime)
     if (foundSignatureObject) {
       this.onKnownSignature = true;
+      this.selectedSignatureObject = foundSignatureObject;
     } else {
       this.onKnownSignature = false;
+      this.selectedSignatureObject = this.initialNotesObject;
+      this.selectedSignatureObject.timeSignature = this.formatSignature(this.api.time.current);
     }
   }
 
@@ -249,7 +252,7 @@ export class VideoComponent implements OnInit {
 
   saveAllNotes() {
     this.api.pause();
-    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray, this.api);
+    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray);
   }
 
   //TODO: Fill in the below functions
