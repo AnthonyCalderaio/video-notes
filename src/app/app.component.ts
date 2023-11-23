@@ -18,5 +18,6 @@ export class AppComponent {
 
   navigateHome() {
     this.router.navigate(['/home']);
+    this.centralService.setTitle('')
   }
 }

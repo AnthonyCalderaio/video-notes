@@ -23,7 +23,6 @@ export class TextAreaComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
       this.updateCurrentTimeEmit.emit(this.currentTime | 0);
-      console.log(this.selectedSignatureObject)
     }
   }
 

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
-import { interval, of, take } from 'rxjs';
+import {  interval, of, switchMap } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { CentralService } from 'src/app/services/central.service';
 
@@ -45,26 +45,26 @@ export class VideoComponent implements OnInit {
   // All subscriptions: this.api.getDefaultMedia() 
 
   ngOnInit(): void {
-    // Set Video src
-    this.route.queryParams
-      .subscribe(queryParams => {
-        this.storageService
-          .getVideos()
-          .subscribe((storedVideos) => {
+
+    // Below does operations in this order
+    //  1) this.route.queryParams
+    //  2) this.storageService.getVideos()
+    //  3) this.storageService.getVideos()
+    this.route.queryParams.pipe(
+      switchMap(queryParams => {
+        return this.storageService.getVideos().pipe(
+          switchMap(storedVideos => {
             this.src = storedVideos[queryParams['index']].base64;
             this.savedVideoIndex = queryParams['index'];
-          })
-      });
-    // Get notes metadata
-    this.storageService.getVideos()
-      .pipe(take(1))
-      .subscribe(
-        retreivedVideos => {
-          this.centralService.setTitle(retreivedVideos[this.savedVideoIndex]?.name);
-          if (retreivedVideos[this.savedVideoIndex]?.notes) {
-            this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
+            this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
+          if (storedVideos[this.savedVideoIndex]?.notes) {
+            this.notesArray = storedVideos[this.savedVideoIndex].notes;
           }
-        });
+            return of()
+          })
+        )
+      })
+    ).subscribe()
 
     // TODO: make this more efficient.
     // Handle seeking drag
@@ -74,10 +74,6 @@ export class VideoComponent implements OnInit {
         checkPlayerIsReady.unsubscribe()
         this.handleDrag();
         this.loader.hide();
-
-        // let timeSignal = signal(this.api.currentTime)
-        // let test = of(timeSignal);
-        // test.subscribe(res => {})
       }
     })
   }
@@ -201,7 +197,7 @@ export class VideoComponent implements OnInit {
 
   annotate() {
     this.api.pause();
-    let currentTime = this.formatSignature(this.api.time.current);
+    let currentTime = this.formatSignature(this.api?.time?.current | 0);
     let foundSignatureObject: TimeSignatureObject;
     foundSignatureObject = this.setCurrentTimeSignature(currentTime)
     if (!foundSignatureObject) {
@@ -228,7 +224,7 @@ export class VideoComponent implements OnInit {
   }
   // TODO: Improve this function 
   handleUpdatedCurrentTime(time?: any) {
-    let currentTime = this.formatSignature(this.api.time.current);
+    let currentTime = this.formatSignature(this.api?.time?.current | 0);
     let foundSignatureObject = this.setCurrentTimeSignature(currentTime)
     if (foundSignatureObject) {
       this.onKnownSignature = true;
