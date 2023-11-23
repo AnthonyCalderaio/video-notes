@@ -60,7 +60,7 @@ export class VideoComponent implements OnInit {
       .pipe(take(1))
       .subscribe(
         retreivedVideos => {
-          this.centralService.currentVideoTitle = retreivedVideos[this.savedVideoIndex]?.name;
+          this.centralService.setTitle(retreivedVideos[this.savedVideoIndex]?.name);
           if (retreivedVideos[this.savedVideoIndex]?.notes) {
             this.notesArray = retreivedVideos[this.savedVideoIndex].notes;
           }
