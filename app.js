@@ -12,7 +12,10 @@ const {app, BrowserWindow} = require('electron');
         minWidth: 900,
         minHeight: 900,
         webPreferences: {
-          nodeIntegration: true
+          nodeIntegration: true,
+          enableRemoteModule: true,
+          // This file is where we run 'node' commands
+          preload: path.join(__dirname, "preload.js") // add "preload"
         }
       })
       // mainWindow.setResizable(false)
@@ -43,4 +46,5 @@ const {app, BrowserWindow} = require('electron');
 
     app.on('activate', function () {
       if (mainWindow === null) createWindow()
+      mainWindow.loadURL('http://localhost:4200');
     })
