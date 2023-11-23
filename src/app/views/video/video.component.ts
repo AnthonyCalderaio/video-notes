@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
-import {  interval, of, switchMap } from 'rxjs';
+import {  interval, of, switchMap, takeWhile } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { CentralService } from 'src/app/services/central.service';
 
@@ -14,27 +14,23 @@ import { CentralService } from 'src/app/services/central.service';
 })
 export class VideoComponent implements OnInit {
   @ViewChild('scrubBar') scrubBar: any;
-
   @ViewChild('noteBar', { read: ViewContainerRef }) vcRef!: ViewContainerRef;
   viewRef!: ViewContainerRef;
 
   src: any = undefined;
   api!: VgApiService;
-
   savedVideoIndex!: number;
-
   initialNotesObject: TimeSignatureObject = {
     timeSignature: '0',
     notes: ''
   };
-
-  notesArray: TimeSignatureObject[] = [this.initialNotesObject];
+  notesArray: TimeSignatureObject[] = [];
 
   selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
   onKnownSignature = false;
 
-
+  alive = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +40,10 @@ export class VideoComponent implements OnInit {
 
   // All subscriptions: this.api.getDefaultMedia() 
 
+  ngOnDestroy(): void {
+    this.alive = false;
+  }
+
   ngOnInit(): void {
 
     // Below does operations in this order
@@ -51,6 +51,7 @@ export class VideoComponent implements OnInit {
     //  2) this.storageService.getVideos()
     //  3) this.storageService.getVideos()
     this.route.queryParams.pipe(
+      takeWhile(() => this.alive),
       switchMap(queryParams => {
         return this.storageService.getVideos().pipe(
           switchMap(storedVideos => {
@@ -87,7 +88,7 @@ export class VideoComponent implements OnInit {
   async deleteNoteHelper() {
     this.loader.show()
     let timeSignatureNumberToRemove = this.selectedSignatureObject.timeSignature;
-    this.selectedSignatureObject = this.initialNotesObject;
+    this.selectedSignatureObject = JSON.parse(JSON.stringify(this.initialNotesObject))
     return new Promise((resolve, reject) => {
       this.notesArray = this.notesArray.filter((timeSignature, index) => {
         if (index + 1 == this.notesArray.length) {
@@ -231,7 +232,7 @@ export class VideoComponent implements OnInit {
       this.selectedSignatureObject = foundSignatureObject;
     } else {
       this.onKnownSignature = false;
-      this.selectedSignatureObject = this.initialNotesObject;
+      this.selectedSignatureObject = JSON.parse(JSON.stringify(this.initialNotesObject));
       this.selectedSignatureObject.timeSignature = this.formatSignature(this.api.time.current);
     }
   }
