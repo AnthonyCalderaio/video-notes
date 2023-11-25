@@ -20,7 +20,8 @@
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             [currentTime]="this.formatSignature(this?.api?.time?.current)"
             (changeSelectedTime)="selectSignature($event)"
-            (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"></app-text-area>
+            (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"
+            (updateCurrentText)="this.textArea = $event"></app-text-area>
     </div>
 </div>
 <div class="button-bar">

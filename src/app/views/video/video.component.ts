@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
-import {  interval, of, switchMap, takeWhile } from 'rxjs';
+import { interval, of, switchMap, takeWhile } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { CentralService } from 'src/app/services/central.service';
 
@@ -25,6 +25,7 @@ export class VideoComponent implements OnInit {
     notes: ''
   };
   notesArray: TimeSignatureObject[] = [];
+  textArea = '';
 
   selectedSignatureObject: TimeSignatureObject = this.initialNotesObject;
   adjustTimeFloat = false;
@@ -58,9 +59,9 @@ export class VideoComponent implements OnInit {
             this.src = storedVideos[queryParams['index']].base64;
             this.savedVideoIndex = queryParams['index'];
             this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
-          if (storedVideos[this.savedVideoIndex]?.notes) {
-            this.notesArray = storedVideos[this.savedVideoIndex].notes;
-          }
+            if (storedVideos[this.savedVideoIndex]?.notes) {
+              this.notesArray = storedVideos[this.savedVideoIndex].notes;
+            }
             return of()
           })
         )
@@ -148,10 +149,10 @@ export class VideoComponent implements OnInit {
       this.selectedSignatureObject = foundSignatureObject;
       this.onKnownSignature = true;
     } else {
-      this.selectedSignatureObject = JSON.parse(JSON.stringify({
-        timeSignature: '-1',
-        notes: ''
-      }));
+      // this.selectedSignatureObject = JSON.parse(JSON.stringify({
+      //   timeSignature: '-1',
+      //   notes: ''
+      // }));
       this.onKnownSignature = false;
     }
   }
@@ -204,7 +205,7 @@ export class VideoComponent implements OnInit {
     if (!foundSignatureObject) {
       this.selectedSignatureObject = {
         timeSignature: currentTime,
-        notes: ''
+        notes: this.textArea
       } as TimeSignatureObject;
       this.notesArray.push(this.selectedSignatureObject);
       this.notesArray = this.sortNotesObject(this.notesArray);
@@ -213,6 +214,7 @@ export class VideoComponent implements OnInit {
     }
     this.onKnownSignature = true;
   }
+
   // TODO: Can we put this in annotate and condense it?
   foundTimeSignature(currentTime: any) {
     let foundSignatureObject: TimeSignatureObject;
@@ -232,8 +234,10 @@ export class VideoComponent implements OnInit {
       this.selectedSignatureObject = foundSignatureObject;
     } else {
       this.onKnownSignature = false;
-      this.selectedSignatureObject = JSON.parse(JSON.stringify(this.initialNotesObject));
-      this.selectedSignatureObject.timeSignature = this.formatSignature(this.api.time.current);
+      this.selectedSignatureObject = {
+        timeSignature: this.formatSignature(this.api.time.current),
+        notes: ''
+      };
     }
   }
 

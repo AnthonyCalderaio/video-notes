@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 
 @Component({
@@ -13,6 +13,7 @@ export class TextAreaComponent {
   @Input() currentTime?: any;
   @Output() changeSelectedTime = new EventEmitter();
   @Output() updateCurrentTimeEmit = new EventEmitter();
+  @Output() updateCurrentText = new EventEmitter();
 
   timeSignatureArray: TimeSignatureObject[] = [];
 
@@ -24,6 +25,10 @@ export class TextAreaComponent {
     if (changes) {
       this.updateCurrentTimeEmit.emit(this.currentTime | 0);
     }
+  }
+
+  handleChangedText(event: any){
+    this.updateCurrentText.emit(event?.target?.value || '')
   }
 
   noteExists() {
