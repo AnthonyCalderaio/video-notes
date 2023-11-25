@@ -3,31 +3,35 @@
   width: 100%;
   background-color: rgb(30, 79, 98);
 }
+
+.devToolContainer {
+  padding:10px;
+  line-height: 25px;
+}
+
 .gridContainer {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding-top: 100px;
+  padding-top: 30px;
+  flex-wrap: wrap;
 }
 
 .gridTile {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: grey;
   margin-right: 5px;
   margin-left: 5px;
+  margin-bottom: 7px;
   color: white;
   text-align: center;
   border-radius: 30px;
 }
-
-/* span {
-    margin: 0 10px;
-} */
 
 .gridTile:first-of-type {
   margin-right: 10px;
@@ -45,4 +49,13 @@
 
 .delete-all-button {
   color: white;
+}
+
+.savedAllDataButton {
+  color:white;
+}
+
+.tileSpan {
+  overflow-wrap: anywhere;
+  padding: 10px;
 }

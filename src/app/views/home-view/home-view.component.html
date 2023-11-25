@@ -1,10 +1,13 @@
 <div class="appContainer">
-  <span (click)="storageService.clearAllVideos(); refreshVideoList();" class="delete-all-button">Delete All</span>
-  <br>
-  <span (click)="navigateToDevTools()" style="color:white">View Saved Data</span>
+  <div class="devToolContainer">
+    <span (click)="storageService.clearAllVideos(); refreshVideoList();" class="delete-all-button clickable">Delete All</span>
+    <br>
+    <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
+  </div>
   <div class="gridContainer">
     <div routerLink="/uploader" class="gridTile clickable">+</div>
     <div *ngFor="let video of savedVideos; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile clickable">
-      {{video?.name}}</div>
+      <span class="tileSpan">{{video?.name}}</span>
+    </div>
   </div>
 </div>

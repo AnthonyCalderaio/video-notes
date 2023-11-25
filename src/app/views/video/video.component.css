@@ -72,3 +72,9 @@
   width: calc(50vw);
   height: 100%;
 }
+
+
+::ng-deep vg-volume {
+  width: 40px !important;
+  margin-right: 14px;
+}
