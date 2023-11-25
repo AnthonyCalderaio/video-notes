@@ -22,9 +22,9 @@ export class TextAreaComponent {
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
+    if (changes && !changes['selectedSignatureObject']) {
       this.updateCurrentTimeEmit.emit(this.currentTime | 0);
-    }
+      }
   }
 
   handleChangedText(event: any){
