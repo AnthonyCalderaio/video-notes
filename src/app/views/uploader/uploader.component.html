@@ -16,9 +16,9 @@
       <div class="uploadFile">
         <span class="file-header">Title:{{video?.relativePath}} <span (click)="removeVideFromPending(i)">Remove</span></span>
         <br>
-        <span>Size: {{pendingFilesMetadata[i].size}}</span>
+        <span>Size: {{pendingFilesMetadata[i]?.size}}</span>
         <br>
-        <span>Type: {{pendingFilesMetadata[i].type}}</span>
+        <span>Type: {{pendingFilesMetadata[i]?.type}}</span>
         <br>
         <br>
       </div>
