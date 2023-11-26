@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.interface';
 
 @Component({
@@ -24,6 +24,7 @@ export class TextAreaComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && !changes['selectedSignatureObject']) {
       this.updateCurrentTimeEmit.emit(this.currentTime | 0);
+      this.handleChangedText(this.selectedSignatureObject.notes)
       }
   }
 
