@@ -25,7 +25,7 @@
 </div>
 <div class="button-bar">
     <span (click)="annotate()" class="annotate-button button"
-        [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at'+
+        [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at '+
         formatSignature(api?.time?.current)}} </span>
     <span (click)="saveAllNotes()" class="save-button button">Save</span>
     <span (click)="deleteButton()" class="delete-button button"
