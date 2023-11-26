@@ -27,17 +27,15 @@ function createWindow() {
     })
   );
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
+  // mainWindow.on('closed', function () {
+  //   mainWindow = null
+  // })
 }
 
 
-app.on('ready', function () {
-  createWindow()
-})
+app.on('ready', createWindow)
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
