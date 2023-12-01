@@ -20,6 +20,12 @@ $npx electron-packager .
 
 (https://github.com/electron/packager)
 
+or 
+
+for DMG:
+
+$electron-builder
+
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
