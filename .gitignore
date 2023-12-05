@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 Vide-note-darwin-arm64/
 out/*
+/release

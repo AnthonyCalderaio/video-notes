@@ -6,8 +6,19 @@
   "license": "MIT",
   "build": {
     "appId": "com.vide-note.app",
+    "directories": {
+      "output": "release",
+      "buildResources": "dist"
+  },
+  "files": [
+      "**/*",
+      "dist/**/*"
+  ],
     "mac": {
-      "target": "7z"
+      "target": [
+        "dmg"
+      ],
+      "mergeASARs": false
     },
     "dmg": {
       "contents": [
@@ -16,7 +27,7 @@
           "y": 150
         },
         {
-          "x": 240,
+          "x": 440,
           "y": 150,
           "type": "link",
           "path": "/Applications"
@@ -26,9 +37,7 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {
-
-      },
+      "packagerConfig": {},
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
@@ -60,7 +69,8 @@
     "test": "ng test",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "dist": "build"
+    "dist": "build",
+    "deploy": "rm -rf release && ng build && electron-builder  --universal"
   },
   "private": true,
   "dependencies": {

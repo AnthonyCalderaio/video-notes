@@ -22,6 +22,8 @@ function createWindow() {
     }
   })
 
+  // mainWindow.loadURL(`file://${__dirname}/index.html`); 
+
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, `/dist/video-notes/index.html`),
@@ -30,8 +32,7 @@ function createWindow() {
       })
     );
     
-    // mainWindow.webContents.openDevTools()
-  
+    mainWindow.webContents.openDevTools()
 
   // mainWindow.loadURL(
   //   url.format({

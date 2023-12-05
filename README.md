@@ -16,7 +16,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Build and Run Electron packaging
 
-$npx electron-packager .
+$npm run deploy
 
 (https://github.com/electron/packager)
 
@@ -37,3 +37,21 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+## App Signing info
+
+This needs to be added eventually
+
+"osxSign": {
+          "identity": "[your apple identity]",
+          "hardened-runtime": true,
+          "entitlements": "entitlements.plist",
+          "entitlements-inherit": "entitlements.plist",
+          "signature-flags": "library"
+        },
+        "osxNotarize": {
+          "appleId": "[your app ID]",
+          "appleIdPassword": "pbfz-qtbs-wgpe-qtvh"
+        }
+
