@@ -10,10 +10,11 @@ export class TextAreaComponent {
 
   @Input('selectedSignatureObject') selectedSignatureObject: any;
   @Input('notesArray') notesArray: TimeSignatureObject[] = [];
-  @Input() currentTime?: any;
-  @Output() changeSelectedTime = new EventEmitter();
   @Output() updateCurrentTimeEmit = new EventEmitter();
   @Output() updateCurrentText = new EventEmitter();
+  @Output() changeSelectedTime = new EventEmitter();
+  @Input() currentTime?: any;
+  @Input() api?: any;
 
   timeSignatureArray: TimeSignatureObject[] = [];
 
@@ -23,12 +24,13 @@ export class TextAreaComponent {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && !changes['selectedSignatureObject']) {
+      // Handle ticks
       this.updateCurrentTimeEmit.emit(this.currentTime | 0);
       this.handleChangedText(this.selectedSignatureObject.notes)
-      }
+    }
   }
 
-  handleChangedText(event: any){
+  handleChangedText(event: any) {
     this.updateCurrentText.emit(event?.target?.value || '')
   }
 
@@ -38,6 +40,12 @@ export class TextAreaComponent {
 
   selectTime(selectedTimeObject: any) {
     this.changeSelectedTime.emit(selectedTimeObject);
+  }
+
+  focusTextArea() {
+    if (this.api.state === 'playing') {
+      this.api.pause();
+    }
   }
 
 }

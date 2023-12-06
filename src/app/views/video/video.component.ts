@@ -265,6 +265,14 @@ export class VideoComponent implements OnInit {
 
   }
 
+  playOrPause() {
+    if (this.api.state === 'paused') {
+      this.api.play();
+    }
+    if (this.api.state === 'playing') {
+      this.api.pause();
+    }
 
+  }
 
 }

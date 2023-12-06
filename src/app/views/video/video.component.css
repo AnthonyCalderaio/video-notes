@@ -13,6 +13,21 @@
   padding: 10px;
 }
 
+.play-pause-button {
+  background-color: #265404;
+  border-radius: 2px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.paused {
+  background-color: darkolivegreen;
+}
+
 .save-button {
   background-color: grey;
   border-radius: 2px;
@@ -22,6 +37,7 @@
   font-size: 18px;
   margin: 10px;
   padding: 10px;
+  width: 50%;
 }
 
 .delete-button {
@@ -33,6 +49,7 @@
   font-size: 18px;
   margin: 10px;
   padding: 10px;
+  width: 50%;
 }
 
 .button-bar {
@@ -77,4 +94,8 @@
 ::ng-deep vg-volume {
   width: 40px !important;
   margin-right: 14px;
+}
+
+.storage-buttons {
+  display: flex;
 }

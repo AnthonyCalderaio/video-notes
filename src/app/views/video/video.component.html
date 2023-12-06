@@ -18,16 +18,20 @@
     <div class="text-area-selector-container">
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             [currentTime]="this.formatSignature(this?.api?.time?.current)"
-            (changeSelectedTime)="selectSignature($event)"
-            (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"
-            (updateCurrentText)="this.textArea = $event"></app-text-area>
+            (changeSelectedTime)="selectSignature($event)" (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"
+            (updateCurrentText)="this.textArea = $event" [api]="this.api"></app-text-area>
     </div>
 </div>
 <div class="button-bar">
+    <span (click)="playOrPause()" class="play-pause-button button"
+        [ngClass]="{'paused': this.api?.state === 'playing' }">{{(this.api?.state === 'playing') ? 'Pause' :
+        'Play'}}</span>
     <span (click)="annotate()" class="annotate-button button"
         [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at '+
         formatSignature(api?.time?.current)}} </span>
-    <span (click)="saveAllNotes()" class="save-button button">Save</span>
-    <span (click)="deleteButton()" class="delete-button button"
-        [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
+    <div class="storage-buttons">
+        <span (click)="saveAllNotes()" class="save-button button">Save</span>
+        <span (click)="deleteButton()" class="delete-button button"
+            [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
+    </div>
 </div>

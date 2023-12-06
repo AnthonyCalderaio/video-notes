@@ -9,6 +9,6 @@
         <pagination-controls (pageChange)="page = $event" previousLabel="" nextLabel=""></pagination-controls>
         <!-- <span>Next</span> -->
     </span>
-    <textarea #textArea *ngIf="noteExists()" (input)="handleChangedText($event)" class="text-area" [(ngModel)]='selectedSignatureObject.notes' rows="5"
+    <textarea #textArea *ngIf="noteExists()" (click)="focusTextArea()" (input)="handleChangedText($event)" class="text-area" [(ngModel)]='selectedSignatureObject.notes' rows="5"
         cols="20"></textarea>
 </div>
