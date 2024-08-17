@@ -6,6 +6,8 @@ import { TimeSignatureObject } from 'src/app/interfaces/time-signature-object.in
 import { interval, of, switchMap, takeWhile } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { CentralService } from 'src/app/services/central.service';
+import { environment, uploadModes } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-video',
@@ -15,6 +17,7 @@ import { CentralService } from 'src/app/services/central.service';
 export class VideoComponent implements OnInit {
   @ViewChild('scrubBar') scrubBar: any;
   @ViewChild('noteBar', { read: ViewContainerRef }) vcRef!: ViewContainerRef;
+
   viewRef!: ViewContainerRef;
 
   src: any = undefined;
@@ -46,7 +49,40 @@ export class VideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setVideoSrc()
+  }
 
+  setVideoSrc() {
+    if (environment.uploadMode == uploadModes.pathed) {
+      this.populateSrcFromLocalPath();
+    } else if (environment.uploadMode == uploadModes.saved) {
+      this.populateSrcFromLocalStorage();
+    }
+  }
+
+  populateSrcFromLocalPath(){
+    this.route.queryParams.pipe(
+      takeWhile(() => this.alive),
+      switchMap(queryParams => {
+        return this.storageService.getVideoPaths().pipe(
+          switchMap(storedVideos => {
+            this.src = storedVideos[queryParams['index']].base64;
+            this.savedVideoIndex = queryParams['index'];
+            this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
+            if (storedVideos[this.savedVideoIndex]?.notes) {
+              this.notesArray = storedVideos[this.savedVideoIndex].notes;
+            }
+            return of()
+          })
+        )
+      })
+    ).subscribe()
+
+
+    // this.src = environment.defaultBasePath + `${encodeURI(someValue)}`
+  }
+
+  populateSrcFromLocalStorage() {
     // Below does operations in this order
     //  1) this.route.queryParams
     //  2) this.storageService.getVideos()

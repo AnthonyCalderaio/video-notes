@@ -9,11 +9,11 @@
     "directories": {
       "output": "release",
       "buildResources": "dist"
-  },
-  "files": [
+    },
+    "files": [
       "**/*",
       "dist/**/*"
-  ],
+    ],
     "mac": {
       "target": [
         "dmg"
@@ -64,13 +64,15 @@
   "scripts": {
     "ng": "ng",
     "start": "electron-forge start",
+    "start:electron": "ng build --configuration production && electron .",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "dist": "build",
-    "deploy": "rm -rf release && ng build && electron-builder  --universal"
+    "deploy": "rm -rf release && ng build && electron-builder  --universal",
+    "deploy:gh-pages": "ng build && npx angular-cli-ghpages --dir=dist/video-notes"
   },
   "private": true,
   "dependencies": {
@@ -106,7 +108,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.1.0",
     "@types/core-js": "^2.5.6",
     "@types/jasmine": "~4.3.0",
-    "electron": "^26.6.1",
+    "electron": "^26.6.10",
     "electron-builder": "^24.9.1",
     "electron-installer-dmg": "^4.0.0",
     "electron-packager": "^17.1.2",

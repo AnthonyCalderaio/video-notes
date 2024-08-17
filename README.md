@@ -55,3 +55,10 @@ This needs to be added eventually
           "appleIdPassword": "pbfz-qtbs-wgpe-qtvh"
         }
 
+
+# How to use
+The best way to use this product is in the Electron format. You can do this by running `npm run start:electron`. This builds and runs it in Electron. Electron have a different engine than the browser based application. 
+
+Browser: You upload videos as files and the engine converts these files into base64 and saves them to indexDB which is localstorage. When you view the files, you retrieve and copy the base64 for each file. This is very cumbersome on the browser and is not a long term solution. This is only suitable for quick browser applications and for demos.
+
+Electron: This is the proper way to use the application. This engine works by file paths. Because the browser does not support file system traversal, you must use the Electron app to run videos via path. Uploading videos on this application only saves path records and when you view the video, it refers to the video already on your system. This saves significant space and does not require duplicate video storage by having only one reference on your machine, vs one on your machine and one on your browser (like with the Browser engine). The only consideration is you need to have a folder on your machine where you put all your videos for this application. This application then points to that folder and it will reference all videos by this base path plus the relative paths when you uploaded the videos.

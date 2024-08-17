@@ -14,7 +14,8 @@ function createWindow() {
     minWidth: 900,
     minHeight: 900,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true, // Enable Node.js integration in the Angular app
+      contextIsolation: false,  // Disable context isolation for easier IPC
       // webSecurity: false
       // enableRemoteModule: true,
       // This file is where we run 'node' commands

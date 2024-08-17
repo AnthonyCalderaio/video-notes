@@ -5,6 +5,7 @@ import { StorageService } from '../../services/storage-service.service';
 import { finalize } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { UserData } from 'src/app/interfaces/user-data.interface';
+import { environment, uploadModes } from 'src/environments/environment';
 
 @Component({
   selector: 'app-uploader',
@@ -84,9 +85,6 @@ export class UploaderComponent {
     this.auditPendingVideos()
   }
 
-
-
-
   // TODO: use this to get file size and type
   analyzeFileData(file: any): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -113,6 +111,20 @@ export class UploaderComponent {
   }
 
   savePendingFiles() {
+    if (environment.uploadMode == uploadModes.pathed) {
+      this.saveByPath();
+    } else if (environment.uploadMode == uploadModes.saved) {
+      this.saveToStorage();
+      this.storageService.saveUserData(this.pendingFilesMetadata)
+      // this.storageService.saveUploadedVideo(this.pendingFiles)
+    }
+  }
+
+  saveByPath(){
+    this.isLoading(true)
+  }
+
+  saveToStorage() {
     this.isLoading(true)
     this.storageService.saveUserData(this.pendingFilesMetadata)
     this.storageService.saveUploadedVideo(this.pendingFiles)

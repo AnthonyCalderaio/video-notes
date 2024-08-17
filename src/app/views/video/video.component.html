@@ -1,10 +1,15 @@
 <div class="video-text-container">
+    <!-- src {{src}} -->
     <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player">
         <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
+         <!-- src="IMG_0007.MOV"  -->
         <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
+            <!-- <source [src]="someValue" type="video/mp4"> -->
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+
         </video>
 
+        
         <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
             <vg-scrub-bar #scrubBar>
                 <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
