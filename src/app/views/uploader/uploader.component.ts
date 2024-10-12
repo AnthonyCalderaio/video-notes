@@ -1,11 +1,19 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgxFileDropEntry } from 'ngx-file-drop';
+import { NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
 import { StorageService } from '../../services/storage-service.service';
 import { finalize } from 'rxjs';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
 import { UserData } from 'src/app/interfaces/user-data.interface';
 import { environment, uploadModes } from 'src/environments/environment';
+// import { FileDialogService } from 'src/app/services/file-dialog.service';
+declare global {
+  interface Window {
+    electron: any;
+  }
+}
+
+const { ipcRenderer } = window.electron;
 
 @Component({
   selector: 'app-uploader',
@@ -35,7 +43,26 @@ export class UploaderComponent {
 
   ngOnInit(): void {
     this.isLoading(false)
-    this.setUserData()
+    this.setUserData();
+
+    // if ((window as any).electronAPI) {
+    //   console.log('Electron API is available');
+    // } else {
+    //     console.error('Electron API is not available');
+    // }
+    
+    setTimeout(() => {
+      console.log('ran1')
+      this.selectVideo();
+    }, 3000);
+    
+  }
+
+  // Electron dialog
+  selectVideo() {  
+    ipcRenderer.invoke('openDialog').then((filePaths: string[]) => {
+      console.log(filePaths); // Handle file paths here
+    });
   }
 
   setUserData() {

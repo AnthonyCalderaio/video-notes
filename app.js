@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
+// const remoteMain = require('@electron/remote/main');
 
 const url = require("url");
 const path = require("path");
@@ -15,11 +16,11 @@ function createWindow() {
     minHeight: 900,
     webPreferences: {
       nodeIntegration: true, // Enable Node.js integration in the Angular app
-      contextIsolation: false,  // Disable context isolation for easier IPC
+      contextIsolation: true,  // Disable context isolation for easier IPC
+      enableRemoteModule: false, // Ensure this is false
       // webSecurity: false
       // enableRemoteModule: true,
-      // This file is where we run 'node' commands
-      // preload: path.join(__dirname, "preload.js") // add "preload"
+      preload: path.join(__dirname, 'preload.js'),
     }
   })
 
@@ -33,9 +34,12 @@ function createWindow() {
       })
     );
     
-    mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
+    
+  // remoteMain.initialize(); // Initialize remote
+  // remoteMain.enable(mainWindow.webContents); // Enable remote for this window
 
-  // mainWindow.loadURL(
+   // mainWindow.loadURL(
   //   url.format({
   //     pathname: path.join(__dirname, `/dist/video-notes/index.html`),
   //     protocol: "file:",
@@ -48,6 +52,16 @@ function createWindow() {
   //   mainWindow = null
   // })
 }
+
+// Define IPC handlers in the main process
+const { ipcMain } = require('electron');
+
+ipcMain.handle('openDialog', async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile', 'multiSelections']
+  });
+  return result.filePaths; // Returns selected file paths to Angular
+});
 
 
 app.on('ready', createWindow)
