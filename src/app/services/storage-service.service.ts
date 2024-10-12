@@ -21,7 +21,7 @@ export class StorageService {
   }
 
   public getVideos(): Observable<any[]> {
-    return from(get('videos').then((savedVideos: any) => {
+    return from(get('videoPaths').then((savedVideos: any) => {
       if (savedVideos) {
         return JSON.parse(savedVideos)
       }
@@ -40,10 +40,15 @@ export class StorageService {
   public getVideoPaths(): Observable<any[]> {
     return from(get('videoPaths').then((savedVideoPaths: any) => {
       if (savedVideoPaths) {
+        console.log('found paths and returning:',savedVideoPaths)
         return JSON.parse(savedVideoPaths)
       }
       else {
-        this.clearAllVideos();
+        // Legacy
+        // this.clearAllVideos();
+
+        // Modern
+        this.clearAllVideoPaths();
       }
     }));
   }
@@ -54,6 +59,10 @@ export class StorageService {
   */
   public getUserData() {
     return from(get('userData').then(userData => JSON.parse(userData)))
+  }
+
+  public getSavedPaths(){
+    return from(get('videoPaths').then(paths => JSON.parse(paths)))
   }
 
   /**
@@ -109,7 +118,7 @@ export class StorageService {
    * @Compatability Electron only
    * @returns Observable<any>
    */
-  private saveExtractedVideoPaths(extractedVideoPathArray: SavedVideo[]): Observable<any> {
+  saveExtractedVideoPaths(extractedVideoPathArray: SavedVideo[]): Observable<any> {
     return from(get('videoPaths')
       .then((savedVideoPaths: any) => {
         // TODO: clean this up
@@ -142,7 +151,7 @@ export class StorageService {
   }
 
   private updateVideoObject(videos: any) {
-    return from(set('videos', JSON.stringify(videos))
+    return from(set('videoPaths', JSON.stringify(videos))
       .then(() => {
         // setting completed
         return of(videos)

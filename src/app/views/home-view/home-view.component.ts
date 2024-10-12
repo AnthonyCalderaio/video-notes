@@ -17,7 +17,7 @@ export class HomeViewComponent {
   // *legacy
   // savedVideos: SavedVideo[] = []
 
-  storedPaths = []
+  storedPaths: any
   pageViewing = 'Home'
   loading = false;
 
@@ -54,8 +54,14 @@ export class HomeViewComponent {
   //     })
   // }
 
-  navigateToVideoScreen(videoIndex: any) {
-    let index = { index: videoIndex }
+  // *Legacy
+  // navigateToVideoScreen(videoIndex: any) {
+  //   let index = { index: videoIndex }
+  //   this.router.navigate(['video'], { queryParams: index })
+  // }
+
+  nagivateToUrlScreen(videoUrlIndex: any){
+    let index = { index: videoUrlIndex }
     this.router.navigate(['video'], { queryParams: index })
   }
 

@@ -21,8 +21,8 @@
   </div>
   <div class="gridContainer">
     <div routerLink="/uploader" class="gridTile clickable">+</div>
-    <div *ngFor="let path of storedPaths; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile clickable">
-      <span class="tileSpan">{{path}}</span>
+    <div *ngFor="let path of storedPaths; let i = index" (click)="nagivateToUrlScreen(i)" class="gridTile clickable">
+      <span class="tileSpan">{{path.path}}</span>
     </div>
   </div>
 </div>

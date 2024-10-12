@@ -1,3 +1,53 @@
+<!-- <div class="video-text-container"> -->
+    <!-- src {{src}} -->
+    <!-- <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player"> -->
+        <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
+         <!-- src="IMG_0007.MOV"  -->
+        <!-- <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto"> -->
+            <!-- <source [src]="someValue" type="video/mp4"> -->
+            <!-- <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4"> -->
+
+        <!-- </video> -->
+
+        
+        <!-- <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
+            <vg-scrub-bar #scrubBar>
+                <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+            <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+            <vg-play-pause></vg-play-pause>
+            <vg-volume></vg-volume>
+        </vg-controls> -->
+    <!-- </vg-player> -->
+    <!-- <div class="text-area-selector-container">
+        <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
+            [currentTime]="this.formatSignature(this?.api?.time?.current)"
+            (changeSelectedTime)="selectSignature($event)" (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"
+            (updateCurrentText)="this.textArea = $event" [api]="this.api"></app-text-area>
+    </div> -->
+<!-- </div> -->
+<!-- <div class="button-bar">
+    <span (click)="playOrPause()" class="play-pause-button button"
+        [ngClass]="{'paused': this.api?.state === 'playing' }">{{(this.api?.state === 'playing') ? 'Pause' :
+        'Play'}}</span>
+    <span (click)="annotate()" class="annotate-button button"
+        [ngClass]="{'disabledButton': onKnownSignature === true }">{{(onKnownSignature) ? 'Editing' : 'Create note at '+
+        formatSignature(api?.time?.current)}} </span>
+    <div class="storage-buttons">
+        <span (click)="saveAllNotes()" class="save-button button">Save</span>
+        <span (click)="deleteButton()" class="delete-button button"
+            [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
+    </div>
+</div> -->
+
+
+
+
+
+<!-- ------Modern----- -->
+
+
 <div class="video-text-container">
     <!-- src {{src}} -->
     <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player">

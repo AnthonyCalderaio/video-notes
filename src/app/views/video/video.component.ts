@@ -22,7 +22,9 @@ export class VideoComponent implements OnInit {
 
   src: any = undefined;
   api!: VgApiService;
-  savedVideoIndex!: number;
+  // *legacy
+  // savedVideoIndex!: number;
+  savedVideoUrlIndex!: number
   initialNotesObject: TimeSignatureObject = {
     timeSignature: '0',
     notes: ''
@@ -56,22 +58,23 @@ export class VideoComponent implements OnInit {
     if (environment.uploadMode == uploadModes.pathed) {
       this.populateSrcFromLocalPath();
     } else if (environment.uploadMode == uploadModes.saved) {
-      this.populateSrcFromLocalStorage();
+      // *legacy
+      // this.populateSrcFromLocalStorage();
     }
   }
 
+  // Left off
   populateSrcFromLocalPath(){
     this.route.queryParams.pipe(
       takeWhile(() => this.alive),
       switchMap(queryParams => {
         return this.storageService.getVideoPaths().pipe(
-          switchMap(storedVideos => {
-            this.src = storedVideos[queryParams['index']].base64;
-            this.savedVideoIndex = queryParams['index'];
-            this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
-            if (storedVideos[this.savedVideoIndex]?.notes) {
-              this.notesArray = storedVideos[this.savedVideoIndex].notes;
-            }
+          switchMap(storedPaths => {
+            this.src = `file://${storedPaths[queryParams['index']].path}`
+            this.savedVideoUrlIndex = queryParams['index'];
+            if (storedPaths[this.savedVideoUrlIndex]?.notes) {
+                          this.notesArray = storedPaths[this.savedVideoUrlIndex].notes;
+                        }
             return of()
           })
         )
@@ -82,39 +85,42 @@ export class VideoComponent implements OnInit {
     // this.src = environment.defaultBasePath + `${encodeURI(someValue)}`
   }
 
-  populateSrcFromLocalStorage() {
-    // Below does operations in this order
-    //  1) this.route.queryParams
-    //  2) this.storageService.getVideos()
-    //  3) this.storageService.getVideos()
-    this.route.queryParams.pipe(
-      takeWhile(() => this.alive),
-      switchMap(queryParams => {
-        return this.storageService.getVideos().pipe(
-          switchMap(storedVideos => {
-            this.src = storedVideos[queryParams['index']].base64;
-            this.savedVideoIndex = queryParams['index'];
-            this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
-            if (storedVideos[this.savedVideoIndex]?.notes) {
-              this.notesArray = storedVideos[this.savedVideoIndex].notes;
-            }
-            return of()
-          })
-        )
-      })
-    ).subscribe()
+  // *legacy
+  // populateSrcFromLocalStorage() {
+  //   // Below does operations in this order
+  //   //  1) this.route.queryParams
+  //   //  2) this.storageService.getVideos()
+  //   //  3) this.storageService.getVideos()
+  //   this.route.queryParams.pipe(
+  //     takeWhile(() => this.alive),
+  //     switchMap(queryParams => {
+  //       return this.storageService.getVideos().pipe(
+  //         switchMap(storedVideos => {
+  //           this.src = storedVideos[queryParams['index']].base64;
+  //           this.savedVideoIndex = queryParams['index'];
+  //           this.centralService.setTitle(storedVideos[this.savedVideoIndex]?.name);
+  //           if (storedVideos[this.savedVideoIndex]?.notes) {
+  //             this.notesArray = storedVideos[this.savedVideoIndex].notes;
+  //           }
+  //           return of()
+  //         })
+  //       )
+  //     })
+  //   ).subscribe()
 
-    // TODO: make this more efficient.
-    // Handle seeking drag
-    this.loader.show()
-    let checkPlayerIsReady = interval(1000).subscribe(playerReady => {
-      if (playerReady) {
-        checkPlayerIsReady.unsubscribe()
-        this.handleDrag();
-        this.loader.hide();
-      }
-    })
-  }
+  
+
+  //   // TODO: make this more efficient.
+  //   // Handle seeking drag
+  //   this.loader.show()
+  //   let checkPlayerIsReady = interval(1000).subscribe(playerReady => {
+  //     if (playerReady) {
+  //       checkPlayerIsReady.unsubscribe()
+  //       this.handleDrag();
+  //       this.loader.hide();
+  //     }
+  //   })
+  // }
 
   deleteButton() {
     this.deleteNoteHelper().then((_) => {
@@ -233,6 +239,7 @@ export class VideoComponent implements OnInit {
     }
   */
 
+
   annotate() {
     this.api.pause();
     let currentTime = this.formatSignature(this.api?.time?.current | 0);
@@ -250,6 +257,25 @@ export class VideoComponent implements OnInit {
     }
     this.onKnownSignature = true;
   }
+
+// *legacy
+  // annotate() {
+  //   this.api.pause();
+  //   let currentTime = this.formatSignature(this.api?.time?.current | 0);
+  //   let foundSignatureObject: TimeSignatureObject;
+  //   foundSignatureObject = this.setCurrentTimeSignature(currentTime)
+  //   if (!foundSignatureObject) {
+  //     this.selectedSignatureObject = {
+  //       timeSignature: currentTime,
+  //       notes: this.textArea
+  //     } as TimeSignatureObject;
+  //     this.notesArray.push(this.selectedSignatureObject);
+  //     this.notesArray = this.sortNotesObject(this.notesArray);
+  //   } else {
+  //     this.selectedSignatureObject = foundSignatureObject;
+  //   }
+  //   this.onKnownSignature = true;
+  // }
 
   // TODO: Can we put this in annotate and condense it?
   foundTimeSignature(currentTime: any) {
@@ -287,9 +313,15 @@ export class VideoComponent implements OnInit {
     }) as TimeSignatureObject;
   }
 
-  saveAllNotes() {
+  // Legacy
+  // saveAllNotes() {
+  //   this.api.pause();
+  //   this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray);
+  // }
+
+    saveAllNotes() {
     this.api.pause();
-    this.storageService.saveNotesToVideoObject(this.savedVideoIndex, this.notesArray);
+    this.storageService.saveNotesToVideoObject(this.savedVideoUrlIndex, this.notesArray);
   }
 
   //TODO: Fill in the below functions

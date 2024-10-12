@@ -64,9 +64,20 @@ export class UploaderComponent {
   // Electron dialog
   selectVideo() {  
     ipcRenderer.invoke('openDialog').then((filePaths: string[]) => {
+
       console.log('filePaths:',filePaths) // Handle file paths here
-      this.storageService.saveExtractedVideoPaths(filePaths as any)
+
+      this.storageService.saveExtractedVideoPaths(this.createPathObject(filePaths) as any)
     });
+  }
+
+  createPathObject(paths: string[]){
+    return paths.map(path => {
+      return {
+        path:path,
+        notes: []
+      }
+    })
   }
 
   private setUserData() {
@@ -79,7 +90,6 @@ export class UploaderComponent {
 
   // TODO: rewrite to audit global files
   auditPendingVideos() {
-
     if ((this.userData?.videoLengthUsed as any) < this.fileLengthLimit
       ||
       (this.userData?.videoStorageUsed as any) < this.byteLimit
@@ -101,18 +111,36 @@ export class UploaderComponent {
     this.resetPendingVariables();
   }
 
-  resetPendingVariables(){
+  resetPendingVariables() {
     this.totalPendingBytes = 0;
   }
 
-  // TODO: change type from any[]
-  dropped(droppedFiles: any[]) {
-    this.pendingFiles = [];
-    this.pendingFiles = droppedFiles;
-    droppedFiles.forEach(async file => {
-      let analyzedFile = await this.analyzeFileData(file);
-      this.pendingFilesMetadata.push(analyzedFile)
-    })
+  /**
+   * Step 1 in file journey.
+   * @param droppedFiles 
+   */
+  dropped(droppedFiles: NgxFileDropEntry[]) {
+    if (environment.uploadMode == uploadModes.pathed) {
+      this.pendingFiles = [];
+      this.pendingFiles = droppedFiles.map((file:any) => {
+        if (file.fileEntry.isFile) {
+          return file?.fileEntry?.fullPath 
+        }
+      });
+      // droppedFiles.forEach(async file => {
+      //   let analyzedFile = await this.analyzeFileData(file);
+      //   this.pendingFilesMetadata.push(analyzedFile)
+      // })
+      console.log('pendingFiles:',this.pendingFiles)
+    } else if (environment.uploadMode == uploadModes.saved) {
+      this.pendingFiles = [];
+      this.pendingFiles = droppedFiles;
+      droppedFiles.forEach(async file => {
+        let analyzedFile = await this.analyzeFileData(file);
+        this.pendingFilesMetadata.push(analyzedFile)
+      })
+    }
+
     this.auditPendingVideos()
   }
 
@@ -151,8 +179,9 @@ export class UploaderComponent {
     }
   }
 
-  saveByPath(){
-    this.isLoading(true)
+  saveByPath() {
+    this.isLoading(true);
+    this.storageService.saveUserData(this.pendingFilesMetadata);
   }
 
   saveToStorage() {
