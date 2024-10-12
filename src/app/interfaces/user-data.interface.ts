@@ -1,4 +1,5 @@
 export interface UserData {
     videoLengthUsed: number,
-    videoStorageUsed: number
+    videoStorageUsed: number,
+    savedPaths: []
 }

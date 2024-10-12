@@ -1,4 +1,5 @@
-<div class="appContainer">
+<!-- *Legacy -->
+<!-- <div class="appContainer">
   <div class="devToolContainer">
     <span (click)="storageService.clearAllVideos(); refreshVideoList();" class="delete-all-button clickable">Delete All</span>
     <br>
@@ -8,6 +9,20 @@
     <div routerLink="/uploader" class="gridTile clickable">+</div>
     <div *ngFor="let video of savedVideos; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile clickable">
       <span class="tileSpan">{{video?.name}}</span>
+    </div>
+  </div>
+</div> -->
+
+<div class="appContainer">
+  <div class="devToolContainer">
+    <span (click)="storageService.clearAllVideoPaths(); refreshVideoPathList();" class="delete-all-button clickable">Delete All</span>
+    <br>
+    <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
+  </div>
+  <div class="gridContainer">
+    <div routerLink="/uploader" class="gridTile clickable">+</div>
+    <div *ngFor="let path of storedPaths; let i = index" (click)="navigateToVideoScreen(i)" class="gridTile clickable">
+      <span class="tileSpan">{{path}}</span>
     </div>
   </div>
 </div>

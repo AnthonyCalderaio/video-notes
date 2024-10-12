@@ -13,7 +13,11 @@ export class HomeViewComponent {
 
   locationRef = location;
   title = 'video-notes';
-  savedVideos: SavedVideo[] = []
+
+  // *legacy
+  // savedVideos: SavedVideo[] = []
+
+  storedPaths = []
   pageViewing = 'Home'
   loading = false;
 
@@ -23,18 +27,32 @@ export class HomeViewComponent {
     private loader: LoadingNotificationService) { }
 
   ngOnInit(): void {
-    this.refreshVideoList()
+    // *Legacy
+    // this.refreshVideoList()
+
+    this.refreshVideoPathList()
   }
 
-  refreshVideoList() {
-    this.isLoading(true);
-    this.storageService
-      .getVideos()
-      .subscribe((storedVideos) => {
-        storedVideos ? this.savedVideos = storedVideos : [];
-        this.isLoading(false);
-      })
-  }
+  refreshVideoPathList(){
+      this.isLoading(true);
+      this.storageService
+        .getSavedPaths()
+        .subscribe((storedPaths) => {
+          storedPaths ? this.storedPaths = storedPaths : [];
+          this.isLoading(false);
+        })
+    }
+
+  // *Legacy
+  // refreshVideoList() {
+  //   this.isLoading(true);
+  //   this.storageService
+  //     .getVideos()
+  //     .subscribe((storedVideos) => {
+  //       storedVideos ? this.savedVideos = storedVideos : [];
+  //       this.isLoading(false);
+  //     })
+  // }
 
   navigateToVideoScreen(videoIndex: any) {
     let index = { index: videoIndex }

@@ -52,20 +52,24 @@ export class UploaderComponent {
     // }
     
     setTimeout(() => {
-      console.log('ran1')
-      this.selectVideo();
-    }, 3000);
+      this.storageService.getSavedPaths().subscribe(
+        res => {
+          console.log('got paths:',res)
+        }
+      )
+    }, 1000);
     
   }
 
   // Electron dialog
   selectVideo() {  
     ipcRenderer.invoke('openDialog').then((filePaths: string[]) => {
-      console.log(filePaths); // Handle file paths here
+      console.log('filePaths:',filePaths) // Handle file paths here
+      this.storageService.saveExtractedVideoPaths(filePaths as any)
     });
   }
 
-  setUserData() {
+  private setUserData() {
     this.storageService.getUserData().subscribe(
       (userData: UserData) => {
         this.userData = userData;

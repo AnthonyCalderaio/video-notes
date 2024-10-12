@@ -6,6 +6,7 @@
   Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
   <br>
 </div>
+<button (click)="selectVideo()">Select Video File</button>
 <div class="center uploaderContainer">
   <ngx-file-drop style="margin-bottom: 10px;" [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
