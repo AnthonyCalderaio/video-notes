@@ -20,6 +20,7 @@ export class HomeViewComponent {
   storedPaths: any
   pageViewing = 'Home'
   loading = false;
+  devMode = true;
 
   constructor(
     public storageService: StorageService,
@@ -77,5 +78,11 @@ export class HomeViewComponent {
       this.loading = false;
       this.loader.hide();
     }
+  }
+
+  deleteVideoPath(index: number){
+    this.storageService.deleteVideoPathAtIndex(index).subscribe(res => {
+      this.refreshVideoPathList();
+    })
   }
 }

@@ -61,7 +61,7 @@ export class StorageService {
     return from(get('userData').then(userData => JSON.parse(userData)))
   }
 
-  public getSavedPaths(){
+  public getSavedPaths() {
     return from(get('videoPaths').then(paths => JSON.parse(paths)))
   }
 
@@ -123,7 +123,7 @@ export class StorageService {
       .then((savedVideoPaths: any) => {
         // TODO: clean this up
         if (!savedVideoPaths) {
-          savedVideoPaths = new Array()
+          savedVideoPaths = new Array();
         }
         try {
           savedVideoPaths = JSON.parse(savedVideoPaths)
@@ -131,10 +131,24 @@ export class StorageService {
 
         }
         let tempList: SavedVideo[] = new Array()
-        tempList = savedVideoPaths.concat(extractedVideoPathArray)
+        tempList = savedVideoPaths.concat(extractedVideoPathArray);
+
         return set('videoPaths', JSON.stringify(tempList))
           .then(() => {
-            return tempList
+            return tempList;
+          })
+      }
+      ))
+  }
+
+
+  deleteVideoPathAtIndex(index: number){
+    return from(get('videoPaths')
+      .then((savedVideoPaths: any) => {
+        let mutatedArrayStringified = JSON.parse(savedVideoPaths).length > 1 ? JSON.stringify(JSON.parse(savedVideoPaths).splice(index, 1)) : JSON.stringify([]);
+        return set('videoPaths', mutatedArrayStringified)
+          .then((savedList) => {
+            return savedList;
           })
       }
       ))
@@ -171,7 +185,7 @@ export class StorageService {
    * 
    * @compatability Browser & Electron
    */
-  saveUploadedVideoPath(videoPathList: NgxFileDropEntry[]){
+  saveUploadedVideoPath(videoPathList: NgxFileDropEntry[]) {
     return from(this.utilityService.extractVideoResources(videoPathList))
     // .pipe(
     //   switchMap((extractedVideoArray: SavedVideo[]) => {

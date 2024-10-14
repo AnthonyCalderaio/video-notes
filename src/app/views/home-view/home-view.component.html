@@ -14,15 +14,16 @@
 </div> -->
 
 <div class="appContainer">
-  <div class="devToolContainer">
+  <div *ngIf="false" class="devToolContainer">
     <span (click)="storageService.clearAllVideoPaths(); refreshVideoPathList();" class="delete-all-button clickable">Delete All</span>
     <br>
     <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
   </div>
   <div class="gridContainer">
-    <div routerLink="/uploader" class="gridTile clickable">+</div>
-    <div *ngFor="let path of storedPaths; let i = index" (click)="nagivateToUrlScreen(i)" class="gridTile clickable">
-      <span class="tileSpan">{{path.path}}</span>
+    <div routerLink="/uploader" class="gridTile">+</div>
+    <div *ngFor="let path of storedPaths; let i = index"  class="gridTile">
+      <span class="delete-button clickable" (click)="deleteVideoPath(i)">X</span>
+      <span class="tileSpan clickable" (click)="nagivateToUrlScreen(i)">{{path.path}}</span>
     </div>
   </div>
 </div>

@@ -1,13 +1,13 @@
-<div class="uploader-info-header">
+<!-- <div class="uploader-info-header">
   Currently have: {{userData?.videoLengthUsed}}/{{fileLengthLimit}} files saved.<br>
   Currently have: {{userData?.videoStorageUsed}}/{{byteLimit}} storage saved.<br>
   <br>
   Total upload byte size: {{totalPendingBytes}} <br>
   Total Uploaded file count: {{pendingFilesMetadata.length}}<br>
   <br>
-</div>
+</div> -->
 <button (click)="selectVideo()">Select Video File</button>
-<div class="center uploaderContainer">
+<!-- <div class="center uploaderContainer">
   <ngx-file-drop style="margin-bottom: 10px;" [disabled]="!roomForVideos" dropZoneLabel="Drop it!" (onFileDrop)="dropped($event)"
     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
   </ngx-file-drop>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div *ngIf="pendingFiles.length" (click)="savePendingFiles()" class="save-pending-uploads-button button">SAVE</div>
-</div>
+</div> -->
 
 <!-- {{pendingFileSizes | json}} -->
-pendingFiles{{pendingFiles.length}}
+<!-- pendingFiles{{pendingFiles.length}} -->
