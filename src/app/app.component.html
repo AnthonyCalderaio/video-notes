@@ -1,9 +1,9 @@
 <div class="app-container">
   <div class="app-header">
-    <span (click)="navigateHome()" class="home-button clickable">
+    <div (click)="navigateHome()" class="home-button clickable">
       Go Home
-    </span>
-    <div *ngIf="centralService.title$  | async; let currentVideoTitle">
+    </div>
+    <div *ngIf="centralService.title$  | async; let currentVideoTitle" class="title-container">
       <span class="current-video-title">You are viewing: {{currentVideoTitle}}</span>
     </div>
   </div>

@@ -8,7 +8,7 @@
   /* padding-top: 15px; */
   display: flex;
   align-items: center;
-  font-size: 35px;
+  font-size: 22px;
   color: white;
   padding-left: 10px;
   min-height: 67px;
@@ -42,4 +42,9 @@
 
 .current-video-title {
   padding-left: 10px;
+}
+
+.title-container {
+  overflow: scroll;
+  margin: 10px;
 }
