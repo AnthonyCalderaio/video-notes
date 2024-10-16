@@ -39,7 +39,7 @@ export class HomeViewComponent {
       this.storageService
         .getSavedPaths()
         .subscribe((storedPaths) => {
-          storedPaths ? this.storedPaths = storedPaths : [];
+          storedPaths ? this.storedPaths = storedPaths : this.storageService.clearAllVideoPaths();
           this.isLoading(false);
         })
     }

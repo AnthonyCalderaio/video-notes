@@ -62,7 +62,7 @@ export class StorageService {
   }
 
   public getSavedPaths() {
-    return from(get('videoPaths').then(paths => JSON.parse(paths)))
+    return from(get('videoPaths').then(paths => {return paths ? JSON.parse(paths) :  undefined}))
   }
 
   /**
@@ -78,8 +78,8 @@ export class StorageService {
    * Set the localstorage initial values for saved-paths method
    * @Compatability Electron only
    */
-  public clearAllVideoPaths(){
-    set('videoPaths', '[]')
+  public clearAllVideoPaths() {
+    set('videoPaths', '[]') // set('videoPaths', JSON.stringify(SavedPathsMock))
     set('userData', '{}')
   }
 
@@ -148,6 +148,7 @@ export class StorageService {
         let mutatedArrayStringified = JSON.parse(savedVideoPaths).length > 1 ? JSON.stringify(JSON.parse(savedVideoPaths).splice(index, 1)) : JSON.stringify([]);
         return set('videoPaths', mutatedArrayStringified)
           .then((savedList) => {
+            this.loadingService.hide();
             return savedList;
           })
       }
