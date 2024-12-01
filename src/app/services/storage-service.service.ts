@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { get, set } from 'idb-keyval';
-import { Observable, of, from, switchMap } from 'rxjs';
+import { Observable, of, from, switchMap, map, take } from 'rxjs';
 import { UtilityService } from './utility.service';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { SavedVideo } from '../interfaces/saved-video.interface';
 import { TimeSignatureObject } from '../interfaces/time-signature-object.interface';
 import { LoadingNotificationService } from './loading-notification/loading-notification.service';
 import { UserData } from '../interfaces/user-data.interface';
+import { SavedPathsMock } from 'src/mocks/savedPaths/saved-paths.mock';
+import { Note, PathNotes } from '../interfaces/video-paths.interface';
 
 
 @Injectable({
@@ -20,7 +22,7 @@ export class StorageService {
     // set('userData',JSON.stringify({videoLengthUsed:0, videoStorageUsed:0}))
   }
 
-  public getVideos(): Observable<any[]> {
+  public getVideos(): Observable<PathNotes[]> {
     return from(get('videoPaths').then((savedVideos: any) => {
       if (savedVideos) {
         return JSON.parse(savedVideos)
@@ -157,7 +159,7 @@ export class StorageService {
 
   saveNotesToVideoObject(index: number, notesArray: TimeSignatureObject[]) {
     this.loadingService.show('Saving');
-    this.getVideos().subscribe(videos => {
+    this.getVideos().subscribe((videos: PathNotes[]) => {
       videos[index].notes = notesArray;
       this.updateVideoObject(videos).subscribe(() => {
         this.loadingService.hide();
@@ -165,7 +167,14 @@ export class StorageService {
     })
   }
 
-  private updateVideoObject(videos: any) {
+  getNotes(index:number):Observable<Note[]> {
+    return this.getVideos().pipe(
+      take(1),
+      map(videos => videos[index].notes)
+    )
+  }
+
+  private updateVideoObject(videos: PathNotes[]) {
     return from(set('videoPaths', JSON.stringify(videos))
       .then(() => {
         // setting completed

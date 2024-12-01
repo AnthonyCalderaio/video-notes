@@ -11,7 +11,8 @@ import { CentralService } from './services/central.service';
 })
 export class AppComponent {
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     public centralService: CentralService) { }
 
   ngOnInit(): void { }

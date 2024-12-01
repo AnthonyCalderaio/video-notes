@@ -35,6 +35,11 @@
       ]
     }
   },
+  "electronPackagerConfig": {
+    "osxSign": {
+      "identity": "4848JHR2S7"
+    }
+  },
   "config": {
     "forge": {
       "packagerConfig": {},
@@ -54,7 +59,6 @@
         {
           "name": "@electron-forge/maker-dmg",
           "config": {
-            "background": "./assets/b1-right.png",
             "format": "ULFO"
           }
         }
@@ -69,7 +73,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "package": "electron-forge package",
-    "make": "electron-forge make",
+    "make:mac:m-series": "electron-forge make",
+    "make:mac:intel":"electron-forge make --arch=x64",
     "dist": "build",
     "deploy": "rm -rf release && ng build && electron-builder  --universal",
     "deploy:gh-pages": "ng build && npx angular-cli-ghpages --dir=dist/video-notes"
@@ -85,8 +90,6 @@
     "@angular/platform-browser": "^16.2.0",
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
-    "@electron-forge/maker-dmg": "^7.1.0",
-    "@electron/osx-sign": "^1.0.5",
     "@videogular/ngx-videogular": "^8.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "idb-keyval": "^6.2.1",
@@ -100,8 +103,10 @@
     "@angular-devkit/build-angular": "^16.2.1",
     "@angular/cli": "~16.2.1",
     "@angular/compiler-cli": "^16.2.0",
+    "@electron/osx-sign": "^1.0.5",
     "@electron-forge/cli": "^7.1.0",
     "@electron-forge/maker-deb": "^7.1.0",
+    "@electron-forge/maker-dmg": "^7.1.0",
     "@electron-forge/maker-rpm": "^7.1.0",
     "@electron-forge/maker-squirrel": "^7.1.0",
     "@electron-forge/maker-zip": "^7.1.0",

@@ -25,7 +25,11 @@ function createWindow() {
   })
 
   // mainWindow.loadURL(`file://${__dirname}/index.html`); 
-
+// debugging opens with localhost
+let debugging = false;
+  if (debugging) {
+    mainWindow.loadURL('http://localhost:4200');
+  } else {
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, `/dist/video-notes/index.html`),
@@ -33,13 +37,15 @@ function createWindow() {
         slashes: true
       })
     );
-    
+  }
+
+
   mainWindow.webContents.openDevTools()
-    
+
   // remoteMain.initialize(); // Initialize remote
   // remoteMain.enable(mainWindow.webContents); // Enable remote for this window
 
-   // mainWindow.loadURL(
+  // mainWindow.loadURL(
   //   url.format({
   //     pathname: path.join(__dirname, `/dist/video-notes/index.html`),
   //     protocol: "file:",

@@ -1,16 +1,16 @@
 <!-- <div class="video-text-container"> -->
-    <!-- src {{src}} -->
-    <!-- <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player"> -->
-        <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
-         <!-- src="IMG_0007.MOV"  -->
-        <!-- <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto"> -->
-            <!-- <source [src]="someValue" type="video/mp4"> -->
-            <!-- <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4"> -->
+<!-- src {{src}} -->
+<!-- <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player"> -->
+<!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
+<!-- src="IMG_0007.MOV"  -->
+<!-- <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto"> -->
+<!-- <source [src]="someValue" type="video/mp4"> -->
+<!-- <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4"> -->
 
-        <!-- </video> -->
+<!-- </video> -->
 
-        
-        <!-- <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
+
+<!-- <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
             <vg-scrub-bar #scrubBar>
                 <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
             </vg-scrub-bar>
@@ -19,8 +19,8 @@
             <vg-play-pause></vg-play-pause>
             <vg-volume></vg-volume>
         </vg-controls> -->
-    <!-- </vg-player> -->
-    <!-- <div class="text-area-selector-container">
+<!-- </vg-player> -->
+<!-- <div class="text-area-selector-container">
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             [currentTime]="this.formatSignature(this?.api?.time?.current)"
             (changeSelectedTime)="selectSignature($event)" (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"
@@ -46,20 +46,17 @@
 
 
 <!-- ------Modern----- -->
-
-
 <div class="video-text-container">
     <!-- src {{src}} -->
     <vg-player #VgHLS class="player" (onPlayerReady)="onPlayerReady($event)" class="vg-player">
         <!-- [src]="'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'" -->
-         <!-- src="IMG_0007.MOV"  -->
+        <!-- src="IMG_0007.MOV"  -->
         <video [vgMedia]="$any(media)" #media [src]="src" id="singleVideo" preload="auto">
             <!-- <source [src]="someValue" type="video/mp4"> -->
             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
 
         </video>
 
-        
         <vg-controls #ref [vgAutohide]="true" [vgAutohideTime]="1.5">
             <vg-scrub-bar #scrubBar>
                 <vg-scrub-bar-current-time vgFor="singleVideo" [vgSlider]="true"></vg-scrub-bar-current-time>
@@ -70,6 +67,7 @@
             <vg-volume></vg-volume>
         </vg-controls>
     </vg-player>
+    <div class="resizer" (mousedown)="onMouseDown($event)"></div>
     <div class="text-area-selector-container">
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             [currentTime]="this.formatSignature(this?.api?.time?.current)"
@@ -88,5 +86,6 @@
         <span (click)="saveAllNotes()" class="save-button button">Save</span>
         <span (click)="deleteButton()" class="delete-button button"
             [ngClass]="{'disabledButton': onKnownSignature === false }">Delete</span>
+        <span (click)="exportNotes(savedVideoUrlIndex)" class="export-button button">Export notes</span>
     </div>
 </div>

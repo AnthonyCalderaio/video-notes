@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, signal } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2, ViewChild, ViewContainerRef, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service.service';
 import { VgApiService } from '@videogular/ngx-videogular/core';
@@ -37,12 +37,15 @@ export class VideoComponent implements OnInit {
   onKnownSignature = false;
 
   alive = true;
+  // Dragging Logic
+  private isDragging = false;
 
   constructor(
     private route: ActivatedRoute,
     private storageService: StorageService,
     private loader: LoadingNotificationService,
-    private centralService: CentralService) { }
+    private centralService: CentralService,
+    private renderer: Renderer2) { }
 
   // All subscriptions: this.api.getDefaultMedia() 
 
@@ -52,6 +55,39 @@ export class VideoComponent implements OnInit {
 
   ngOnInit(): void {
     this.setVideoSrc()
+  }
+
+  // Dragging logic
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    event.preventDefault();
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) return;
+
+    const container = document.querySelector('.video-text-container') as HTMLElement;
+    const player = document.querySelector('.vg-player') as HTMLElement;
+    const textArea = document.querySelector('.text-area') as HTMLElement;
+
+    const containerRect = container.getBoundingClientRect();
+    const mouseX = event.clientX;
+
+    // Calculate new widths
+    const newPlayerWidth = mouseX - containerRect.left;
+    const newTextAreaWidth = containerRect.width - newPlayerWidth - 5; // Subtract resizer width
+
+    // Set new widths
+    if (newPlayerWidth > 100 && newTextAreaWidth > 100) { // Set minimum widths
+      this.renderer.setStyle(player, 'width', `${newPlayerWidth}px`);
+      this.renderer.setStyle(textArea, 'width', `${newTextAreaWidth}px`);
+    }
   }
 
   setVideoSrc() {
@@ -310,6 +346,11 @@ export class VideoComponent implements OnInit {
       this.api.pause();
     }
 
+  }
+  exportNotes(index: number){
+    this.storageService.getNotes(index).subscribe(notes => {
+      console.log(notes)
+    })
   }
 
 }
