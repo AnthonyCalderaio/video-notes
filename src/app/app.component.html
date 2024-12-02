@@ -1,7 +1,7 @@
 <div class="app-container">
   <div class="app-header">
-    <div (click)="navigateHome()" class="home-button clickable">
-      Go Home
+    <div *ngIf="!isHomePage"(click)="navigateHome()" class="home-button clickable">
+      Home
     </div>
     <div *ngIf="centralService.title$  | async; let currentVideoTitle" class="title-container">
       <span class="current-video-title">You are viewing: {{currentVideoTitle}}</span>

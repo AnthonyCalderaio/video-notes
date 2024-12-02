@@ -18,7 +18,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { FormsModule } from '@angular/forms';
 import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { DeveloperToolsComponent } from './views/developer-tools/developer-tools.component'; // <-- import the module
+import { DeveloperToolsComponent } from './views/developer-tools/developer-tools.component';
+import { FileNameFromPathPipe } from './pipes/file-name-from-path.pipe'; // <-- import the module
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DeveloperToolsComponent } from './views/developer-tools/developer-tools
     TimeSignatureComponent,
     TextAreaComponent,
     MinutesFormatPipe,
-    DeveloperToolsComponent
+    DeveloperToolsComponent,
+    FileNameFromPathPipe
   ],
   imports: [
     BrowserModule,

@@ -20,10 +20,10 @@
     <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
   </div>
   <div class="gridContainer">
-    <div routerLink="/uploader" class="gridTile">+</div>
+    <div routerLink="/uploader" class="gridTile clickable">+</div>
     <div *ngFor="let path of storedPaths; let i = index"  class="gridTile">
       <span class="delete-button clickable" (click)="deleteVideoPath(i)">X</span>
-      <span class="tileSpan clickable" (click)="nagivateToUrlScreen(i)">{{path.path}}</span>
+      <span class="tileSpan clickable" (click)="nagivateToUrlScreen(i)">{{path.path | fileNameFromPath}}</span>
     </div>
   </div>
 </div>

@@ -70,6 +70,7 @@
     "start": "electron-forge start",
     "start:electron": "ng build --configuration production && electron .",
     "build": "ng build",
+    "build:develop": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "package": "electron-forge package",
