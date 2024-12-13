@@ -35,6 +35,7 @@ export class UploaderComponent {
   pendingFilesMetadata: any[] = [];
   totalPendingBytes = 0;
 
+  uploadedFileNames: string[] = []
 
   constructor(
     private router: Router,
@@ -42,14 +43,8 @@ export class UploaderComponent {
     private loader: LoadingNotificationService) { }
 
   ngOnInit(): void {
-    this.isLoading(false)
+    this.isLoading(false);
     this.setUserData();
-
-    // if ((window as any).electronAPI) {
-    //   console.log('Electron API is available');
-    // } else {
-    //     console.error('Electron API is not available');
-    // }
     
     setTimeout(() => {
       this.storageService.getSavedPaths().subscribe(
@@ -58,16 +53,20 @@ export class UploaderComponent {
         }
       )
     }, 1000);
-    
   }
 
   // Electron dialog
   selectVideo() {  
-    ipcRenderer.invoke('openDialog').then((filePaths: string[]) => {
+    (window as any).electron.ipcRenderer.invoke('openDialog').then((filePaths: string[]) => {
+          this.uploadedFileNames = this.getUploadedFileNamesList(filePaths);
+          this.storageService.saveExtractedVideoPaths(this.createPathObject(filePaths) as any);
+        });
+  }
 
-      console.log('filePaths:',filePaths) // Handle file paths here
-
-      this.storageService.saveExtractedVideoPaths(this.createPathObject(filePaths) as any)
+  getUploadedFileNamesList(filePaths: string[]): string[]{
+    return filePaths.map(filePath => {
+      const parts = filePath.split(/[/\\]/);
+      return parts[parts.length - 1];
     });
   }
 

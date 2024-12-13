@@ -8,5 +8,9 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 contextBridge.exposeInMainWorld('electron', {
-  ipcRenderer: ipcRenderer,
+  ipcRenderer: {
+    invoke: (...args) => ipcRenderer.invoke(...args),
+    on: (...args) => ipcRenderer.on(...args),
+    send: (...args) => ipcRenderer.send(...args),
+},
 });

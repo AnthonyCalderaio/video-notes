@@ -30,3 +30,9 @@
 
 <!-- {{pendingFileSizes | json}} -->
 <!-- pendingFiles{{pendingFiles.length}} -->
+
+
+<div *ngFor="let file of uploadedFileNames;let i = index">
+  <span class="uploadedFileText">file {{i + 1}} - {{file}}</span>
+  <br>
+</div>

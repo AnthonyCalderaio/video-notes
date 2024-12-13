@@ -43,6 +43,10 @@
     flex-direction: row;
   }
 
+  ::ng-deep   .ngx-pagination a {
+    color: white;
+  }
+
   ::ng-deep   .ngx-pagination .current  {
     background: darkcyan !important;
     color: yellow;

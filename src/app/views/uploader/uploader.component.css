@@ -4,6 +4,10 @@
   padding: 10px;
 }
 
+.uploadedFileText {
+  color: white;
+}
+
 .uploadFile {
   border-radius: 8px;
   border: 1px solid lightgray;
