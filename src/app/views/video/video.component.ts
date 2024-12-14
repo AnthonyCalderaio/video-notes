@@ -36,9 +36,11 @@ export class VideoComponent implements OnInit {
   adjustTimeFloat = false;
   onKnownSignature = false;
 
-  alive = true;
-  // Dragging Logic
+  private alive = true;
   private isDragging = false;
+
+  showDialog = false;
+  premiumAccount = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -250,6 +252,10 @@ export class VideoComponent implements OnInit {
     let currentTime = this.formatSignature(this.api?.time?.current | 0);
     let foundSignatureObject: TimeSignatureObject;
     foundSignatureObject = this.setCurrentTimeSignature(currentTime)
+
+    // Premium check
+    if(this.notesArray.length > 2){ if(!this.premiumAccount){this.showDialog = true; return;}}
+
     if (!foundSignatureObject) {
       this.selectedSignatureObject = {
         timeSignature: currentTime,

@@ -19,7 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { MinutesFormatPipe } from './pipes/minutes-format.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DeveloperToolsComponent } from './views/developer-tools/developer-tools.component';
-import { FileNameFromPathPipe } from './pipes/file-name-from-path.pipe'; // <-- import the module
+import { FileNameFromPathPipe } from './pipes/file-name-from-path.pipe';
+import { NotesLimitDialogComponent } from './plugins/dialog/dialog.component'; // <-- import the module
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { FileNameFromPathPipe } from './pipes/file-name-from-path.pipe'; // <-- 
     TextAreaComponent,
     MinutesFormatPipe,
     DeveloperToolsComponent,
-    FileNameFromPathPipe
+    FileNameFromPathPipe,
+    NotesLimitDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,22 @@
+const path = require('path');
+const fs = require('fs')
+
+console.log("Forge configuration is being loaded...");
+
 module.exports = {
   packagerConfig: {
-    asar: true,
+    ignore: [
+      'src/',       // Ignore the 'src' folder
+      'node_modules',
+      '.git/',        // Ignore git
+      '.vscode/', 
+      '.angular/',
+      'forge.config.js',
+      'release/'
+    ],
+    asar: false,
+    strip: false,
   },
-  rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
@@ -23,15 +37,19 @@ module.exports = {
     {
       name: '@electron-forge/maker-dmg',
       config: {
-        // background: './assets/dmg-background.png',
-        format: 'ULFO'
-      }
-    }
-  ],
-  plugins: [
-    {
-      name: '@electron-forge/plugin-auto-unpack-natives',
-      config: {},
+        format: 'ULFO',
+      },
     },
   ],
+  // Hooks for debugging
+  //   hooks: {
+  //   prePackage: async (forgeConfig, options) => {
+  //     const rootDir = options.dir || process.cwd();
+  //     console.log("Packing from directory:", rootDir);
+
+  //     const files = fs.readdirSync(rootDir, { withFileTypes: true })
+  //       .map(dirent => `${dirent.name} - ${dirent.isDirectory() ? 'Directory' : 'File'}`);
+  //     console.log("Files to be packaged:", files);
+  //   },
+  // }
 };

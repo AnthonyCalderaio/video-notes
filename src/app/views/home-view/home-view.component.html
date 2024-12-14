@@ -18,6 +18,8 @@
     <span (click)="storageService.clearAllVideoPaths(); refreshVideoPathList();" class="delete-all-button clickable">Delete All</span>
     <br>
     <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
+    <br>
+    <span (click)="validateKey()" class="activateButton clickable">Activate</span>
   </div>
   <div class="gridContainer">
     <div routerLink="/uploader" class="gridTile clickable">+</div>

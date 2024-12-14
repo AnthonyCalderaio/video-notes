@@ -18,7 +18,7 @@ function createWindow() {
       nodeIntegration: true, // Enable Node.js integration in the Angular app
       contextIsolation: true,  // Disable context isolation for easier IPC
       enableRemoteModule: false, // Ensure this is false
-      // webSecurity: false
+      // webSecurity: false,
       // enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js'),
     }
@@ -29,6 +29,7 @@ function createWindow() {
 let debugging = false;
   if (debugging) {
     mainWindow.loadURL('http://localhost:4200');
+    // mainWindow.loadURL('./src/index.html');
   } else {
     mainWindow.loadURL(
       url.format({
@@ -62,11 +63,28 @@ let debugging = false;
 // Define IPC handlers in the main process
 const { ipcMain } = require('electron');
 
+// Open Dialog
 ipcMain.handle('openDialog', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile', 'multiSelections']
   });
   return result.filePaths; // Returns selected file paths to Angular
+});
+
+// Payments
+const axios = require('axios'); // For API requests
+
+ipcMain.handle('validate-key', async (event, key) => {
+  try {
+    const response = await axios.post('https://vendor-api.paddle.com/key/validate', {
+      license_key: key,
+      product_id: 'pro_01jf1g9kpc2fkcve7xsvaw8ys5'
+    });
+    return response.data.success;
+  } catch (error) {
+    console.error('License validation failed:', error);
+    return false;
+  }
 });
 
 

@@ -22,6 +22,8 @@ export class HomeViewComponent {
   loading = false;
   devMode = true;
 
+  licenseKey = '';
+
   constructor(
     public storageService: StorageService,
     public router: Router,
@@ -39,6 +41,7 @@ export class HomeViewComponent {
       this.storageService
         .getSavedPaths()
         .subscribe((storedPaths) => {
+          console.log('storedPaths:',storedPaths)
           storedPaths ? this.storedPaths = storedPaths : this.storageService.clearAllVideoPaths();
           this.isLoading(false);
         })
@@ -85,4 +88,21 @@ export class HomeViewComponent {
       this.refreshVideoPathList();
     })
   }
+
+  validateKey() {
+    (window as any).license.validate(this.licenseKey).then((isValid: boolean) => {
+      if (isValid) {
+        console.log('License is valid!');
+        this.unlockPremiumFeatures();
+      } else {
+        alert('Invalid license key');
+      }
+    });
+  }
+
+  // TODO: unlock the feature
+  unlockPremiumFeatures(){
+
+  }
+
 }
