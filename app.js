@@ -3,6 +3,7 @@ const { app, BrowserWindow, dialog } = require('electron');
 
 const url = require("url");
 const path = require("path");
+const fs = require('fs');
 
 let mainWindow
 
@@ -87,8 +88,34 @@ ipcMain.handle('validate-key', async (event, key) => {
   }
 });
 
+// Load Premium Status function
+const premiumFilePath = path.join(app.getPath('userData'), 'premium.json');
+function loadPremiumStatus() {
+  if (!fs.existsSync(premiumFilePath)) {
+    console.log('Premium status not found. Defaulting to non-premium.');
+    return false; // Default to non-premium
+  }
 
-app.on('ready', createWindow)
+  try {
+    const data = JSON.parse(fs.readFileSync(premiumFilePath, 'utf8'));
+    console.log('Loaded premium status:', data);
+    return data.premium === true; // Return true if premium
+  } catch (error) {
+    console.error('Error loading premium status:', error);
+    return false; // Default to non-premium on error
+  }
+}
+
+
+// app.on('ready', createWindow)
+app.whenReady().then(() => {
+  createWindow();
+
+  // Register the IPC handler
+  ipcMain.handle('load-premium-status', async () => {
+    return loadPremiumStatus();
+  });
+})
 
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()

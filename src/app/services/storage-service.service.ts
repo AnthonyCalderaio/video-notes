@@ -223,4 +223,15 @@ export class StorageService {
   //   )
   // }
 
+  loadPremiumStatus(): Observable<any>{
+      // Call the exposed Electron API function
+      return from(
+        (window as any).premiumAPI.loadPremiumStatus()
+        .then((result: any) => result)
+        .catch((error: any) => {
+          console.error('LOG: Error invoking loadPremiumStatus:', error);
+        })
+      )
+  }
+
 }

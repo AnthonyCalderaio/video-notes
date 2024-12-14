@@ -1,6 +1,6 @@
 export const SavedPathsMock = [
     {
-        "path": "/Users/anthony_calderaio/Desktop/Screen Recording 2024-08-07 at 11.17.54 AM.mov",
+        "path": "",
         "notes": [
             {
                 "timeSignature": "0",
@@ -16,12 +16,8 @@ export const SavedPathsMock = [
             },
             {
                 "timeSignature": "3",
-                "notes": "whats the del with this part?"
+                "notes": "whats the deal with this part?"
             }
         ]
-    },
-    {
-        "path": "/Users/anthony_calderaio/Desktop/IMG_8888.MOV",
-        "notes": []
     }
 ]
