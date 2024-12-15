@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { StorageService } from '../../services/storage-service.service';
-import { SavedVideo } from 'src/app/interfaces/saved-video.interface';
 import { Router } from '@angular/router';
 import { LoadingNotificationService } from 'src/app/services/loading-notification/loading-notification.service';
-import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { CentralService } from 'src/app/services/central.service';
 
 @Component({
   selector: 'app-home-view',
@@ -23,30 +22,23 @@ export class HomeViewComponent {
   pageViewing = 'Home'
   loading = false;
   devMode = true;
-
-  licenseKey = '';
+  showDialog = false;
 
   constructor(
     public storageService: StorageService,
     public router: Router,
-    private loader: LoadingNotificationService) { }
+    private loader: LoadingNotificationService,
+    public centralService: CentralService) { }
 
   ngOnInit(): void {
     // *Legacy
     // this.refreshVideoList()
 
-    // Do this for loading premium status
-    this.storageService.loadPremiumStatus()
-      .pipe(
-        switchMap((premiumStatus: any) => {
-          console.log('Is the user premium?', premiumStatus);
-          return this.refreshVideoPathList()
-        })
-      ).subscribe((storedPaths) => {
-        console.log('storedPaths:', storedPaths)
-        storedPaths ? this.storedPaths = storedPaths : this.storageService.clearAllVideoPaths();
-        this.isLoading(false);
-      })
+    this.refreshVideoPathList().subscribe((storedPaths) => {
+      console.log('storedPaths:', storedPaths)
+      storedPaths ? this.storedPaths = storedPaths : this.storageService.clearAllVideoPaths();
+      this.isLoading(false);
+    })
   }
 
   refreshVideoPathList(): Observable<any> {
@@ -94,17 +86,6 @@ export class HomeViewComponent {
     this.storageService.deleteVideoPathAtIndex(index).subscribe(res => {
       this.refreshVideoPathList();
     })
-  }
-
-  validateKey() {
-    (window as any).license.validate(this.licenseKey).then((isValid: boolean) => {
-      if (isValid) {
-        console.log('License is valid!');
-        this.unlockPremiumFeatures();
-      } else {
-        alert('Invalid license key');
-      }
-    });
   }
 
   // TODO: unlock the feature

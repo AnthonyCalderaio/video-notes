@@ -57,7 +57,8 @@
     "make:mac:intel": "electron-forge make --arch=x64",
     "dist": "build",
     "deploy": "rm -rf release && ng build && electron-builder  --universal",
-    "deploy:gh-pages": "ng build && npx angular-cli-ghpages --dir=dist/video-notes"
+    "deploy:gh-pages": "ng build && npx angular-cli-ghpages --dir=dist/video-notes",
+    "check:circular-dependencies": "madge --circular src"
   },
   "private": true,
   "dependencies": {

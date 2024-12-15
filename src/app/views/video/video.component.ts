@@ -254,8 +254,10 @@ export class VideoComponent implements OnInit {
     foundSignatureObject = this.setCurrentTimeSignature(currentTime)
 
     // Premium check
-    if(this.notesArray.length > 2){ if(!this.premiumAccount){this.showDialog = true; return;}}
-
+    if(this.notesArray.length > 2 && !this.centralService.isPremiumUser()){ 
+      this.showDialog = true; 
+      return;
+    }
     if (!foundSignatureObject) {
       this.selectedSignatureObject = {
         timeSignature: currentTime,

@@ -5,8 +5,8 @@
     </div>
     <div *ngIf="centralService.title$  | async; let currentVideoTitle" class="title-container">
       <span class="current-video-title">You are viewing: {{currentVideoTitle}}</span>
-    </div>
+   </div>
   </div>
   <router-outlet></router-outlet>
-  <app-spinner id='loadingIndicator' class="app-spinner"></app-spinner>
+  <app-spinner *ngIf="LoadingService.loading$ | async" id='loadingIndicator' class="app-spinner"></app-spinner>
 </div>

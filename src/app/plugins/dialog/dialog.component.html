@@ -1,28 +1,68 @@
-<div class="dialog-overlay" *ngIf="isDialogVisible">
-    <div class="dialog">
-      <h1>You’ve Exceeded the Free Tier</h1>
-      <p>
-        You’ve reached the limit of notes available in the free tier. Upgrade to the premium plan to unlock unlimited notes.
-      </p>
+<ng-container *ngIf="currentView === 'limitExceeded'">
+  <ng-container *ngTemplateOutlet="limitExceededTemplate"></ng-container>
+</ng-container>
 
-      <div *ngIf="showActivateForm">
-        <label for="activationCode">Enter Activation Code</label>
-        <input 
-          id="activationCode" 
-          [(ngModel)]="activationCode" 
-          type="text" 
-          placeholder="Enter your code" 
-          class="input-field">
-        <div class="error-message" *ngIf="activationError">
-          {{ activationError }}
+<ng-container *ngIf="currentView === 'activateForm'">
+  <ng-container *ngTemplateOutlet="activateFormTemplate"></ng-container>
+</ng-container>
+  
+  <ng-template #limitExceededTemplate>
+    <div class="dialog-overlay" *ngIf="isDialogVisible">
+      <div class="dialog">
+        <h1>You’ve Exceeded the Free Tier</h1>
+        <p>
+          You’ve reached the limit of notes available in the free tier. Upgrade to the premium plan to unlock unlimited notes.
+        </p>
+  
+        <div *ngIf="showActivateForm">
+          <label for="activationCode">Enter Activation Code</label>
+          <input 
+            id="activationCode" 
+            [(ngModel)]="activationCode" 
+            type="text" 
+            placeholder="Enter your code" 
+            class="input-field">
+          <div class="error-message" *ngIf="activationError">
+            {{ activationError }}
+          </div>
+        </div>
+  
+        <div class="dialog-buttons">
+          <button (click)="closeDialog()">Close</button>
+          <button *ngIf="!showActivateForm" (click)="openActivateForm()">Activate</button>
+          <button *ngIf="showActivateForm" (click)="validateKey()">Submit</button>
+          <button (click)="redirectToBuy()">Buy</button>
         </div>
       </div>
+    </div>
 
-      <div class="dialog-buttons">
-        <button (click)="closeDialog()">Close</button>
-        <button *ngIf="!showActivateForm" (click)="openActivateForm()">Activate</button>
-        <button *ngIf="showActivateForm" (click)="activateCode()">Submit</button>
-        <button (click)="redirectToBuy()">Buy</button>
+  </ng-template>
+
+  <ng-template #activateFormTemplate>
+    <div class="dialog-overlay" *ngIf="isDialogVisible">
+      <div class="dialog">
+        <h1>Activate Premium</h1>
+        <div *ngIf="showActivateForm">
+          <label for="activationCode">Enter Activation Code</label>
+          <input 
+            id="activationCode" 
+            [(ngModel)]="activationCode" 
+            type="text" 
+            placeholder="Enter your code" 
+            class="input-field">
+          <div class="error-message" *ngIf="activationError">
+            {{ activationError }}
+          </div>
+        </div>
+    
+        <div class="dialog-buttons">
+          <button (click)="closeDialog()">Close</button>
+          <button *ngIf="!showActivateForm" (click)="openActivateForm()">Activate</button>
+          <button *ngIf="showActivateForm" (click)="validateKey()">Submit</button>
+          <button (click)="redirectToBuy()">Buy</button>
+        </div>
       </div>
     </div>
-  </div>
+      
+
+  </ng-template>

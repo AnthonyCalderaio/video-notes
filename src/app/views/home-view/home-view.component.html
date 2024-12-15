@@ -12,6 +12,7 @@
     </div>
   </div>
 </div> -->
+<app-notes-limit-dialog *ngIf="showDialog" class="dialog" [currentView]="'activateForm'" (dialogOpen)="showDialog = $event"></app-notes-limit-dialog>
 
 <div class="appContainer">
   <div *ngIf="true" class="devToolContainer">
@@ -19,7 +20,7 @@
     <br>
     <span (click)="navigateToDevTools()" class="savedAllDataButton clickable">View Saved Data</span>
     <br>
-    <span (click)="validateKey()" class="activateButton clickable">Activate</span>
+    <span *ngIf="!centralService.isPremiumUser()" (click)="showDialog = true" class="activateButton clickable">Activate</span>
   </div>
   <div class="gridContainer">
     <div routerLink="/uploader" class="gridTile clickable">+</div>

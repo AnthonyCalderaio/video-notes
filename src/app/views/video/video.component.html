@@ -69,7 +69,7 @@
     </vg-player>
     <div class="resizer" (mousedown)="onMouseDown($event)"></div>
     <div class="text-area-selector-container">
-        <app-notes-limit-dialog *ngIf="showDialog" (dialogOpen)="showDialog = $event"></app-notes-limit-dialog>
+        <app-notes-limit-dialog *ngIf="showDialog" [currentView]="'limitExceeded'" (dialogOpen)="showDialog = $event"></app-notes-limit-dialog>
         <app-text-area [notesArray]="notesArray" [selectedSignatureObject]="selectedSignatureObject"
             [currentTime]="this.formatSignature(this?.api?.time?.current)"
             (changeSelectedTime)="selectSignature($event)" (updateCurrentTimeEmit)="handleUpdatedCurrentTime($event)"

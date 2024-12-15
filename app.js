@@ -25,7 +25,7 @@ function createWindow() {
     }
   })
 
-  // mainWindow.loadURL(`file://${__dirname}/index.html`); 
+// mainWindow.loadURL(`file://${__dirname}/index.html`); 
 // debugging opens with localhost
 let debugging = false;
   if (debugging) {
@@ -40,25 +40,7 @@ let debugging = false;
       })
     );
   }
-
-
   mainWindow.webContents.openDevTools()
-
-  // remoteMain.initialize(); // Initialize remote
-  // remoteMain.enable(mainWindow.webContents); // Enable remote for this window
-
-  // mainWindow.loadURL(
-  //   url.format({
-  //     pathname: path.join(__dirname, `/dist/video-notes/index.html`),
-  //     protocol: "file:",
-  //     slashes: true
-  //   })
-  // );
-  // Open the DevTools.
-
-  // mainWindow.on('closed', function () {
-  //   mainWindow = null
-  // })
 }
 
 // Define IPC handlers in the main process
@@ -75,18 +57,6 @@ ipcMain.handle('openDialog', async () => {
 // Payments
 const axios = require('axios'); // For API requests
 
-ipcMain.handle('validate-key', async (event, key) => {
-  try {
-    const response = await axios.post('https://vendor-api.paddle.com/key/validate', {
-      license_key: key,
-      product_id: 'pro_01jf1g9kpc2fkcve7xsvaw8ys5'
-    });
-    return response.data.success;
-  } catch (error) {
-    console.error('License validation failed:', error);
-    return false;
-  }
-});
 
 // Load Premium Status function
 const premiumFilePath = path.join(app.getPath('userData'), 'premium.json');
@@ -105,6 +75,27 @@ function loadPremiumStatus() {
     return false; // Default to non-premium on error
   }
 }
+
+// Function to activate the key
+function activateKey(key) {
+  // Simulated list of valid keys
+  const validKeys = ['VALID-KEY-123', 'ANOTHER-KEY-456'];
+  if (validKeys.includes(key)) {
+    
+    const premiumData = { premium: true, activatedAt: new Date().toISOString() };
+    fs.writeFileSync(premiumFilePath, JSON.stringify(premiumData, null, 2));
+    console.log('Premium status updated:', premiumData);
+    return { success: true, message: 'Activation successful!' };
+  } else {
+    console.error('Invalid activation key:', key);
+    return { success: false, message: 'Invalid activation key.' };
+  }
+}
+
+// IPC handler for activating the key
+ipcMain.handle('activate-key', (event, key) => {
+  return activateKey(key);
+});
 
 
 // app.on('ready', createWindow)

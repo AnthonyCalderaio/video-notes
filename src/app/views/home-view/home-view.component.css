@@ -60,6 +60,10 @@
   color:white;
 }
 
+.activateButton {
+  color:white;
+}
+
 .tileSpan {
   overflow-wrap: anywhere;
   padding: 10px;
@@ -72,4 +76,9 @@
   background: black;
   border: aquamarine solid 1px;
   border-radius: 10px;
+}
+
+.dialog {
+  z-index: 2;
+  position: absolute;
 }

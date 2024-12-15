@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingNotificationService } from '../loading-notification.service';
-import { BehaviorSubject, interval } from 'rxjs';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-spinner',
@@ -12,7 +12,6 @@ export class SpinnerComponent {
   constructor(public loader: LoadingNotificationService) { }
 
   loadingVerbiage: string = 'Loading';
-
 
   ngOnInit(): void {
     interval(200).subscribe(x => {

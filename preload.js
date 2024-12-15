@@ -10,7 +10,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //// Open Dialog
-
 // File Uploader
 contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
@@ -20,34 +19,12 @@ contextBridge.exposeInMainWorld('electron', {
 },
 });
 
-//// Open Dialog
 
+//// Validation
 // Validate key
 contextBridge.exposeInMainWorld('license', {
-  validate: (key) => ipcRenderer.invoke('validate-key', key),
+  activateKey: (key) => ipcRenderer.invoke('activate-key', key),
 });
-
-
-// Define the path for the premium status file
-// const userDataPath = app.getPath('userData'); // Electron's user data directory
-// const premiumFilePath = path.join(userDataPath, 'premium.json');
-
-// Get Premium Status
-function loadPremiumStatus() {
-  if (!fs.existsSync(premiumFilePath)) {
-      console.log('Premium status not found. Defaulting to non-premium.');
-      return false; // Default to non-premium
-  }
-
-  try {
-      const data = JSON.parse(fs.readFileSync(premiumFilePath, 'utf8'));
-      console.log('Loaded premium status:', data);
-      return data.premium === true; // Return true if premium
-  } catch (error) {
-      console.error('Error loading premium status:', error);
-      return false; // Default to non-premium on error
-  }
-}
 
 // Handle IPC calls
 // Expose loadPremiumStatus and other IPC calls
